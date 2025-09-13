@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Customer - JHMPRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "primary-blue": "#1E3A8A",
+              "secondary-blue": "#3B82F6",
+              "light-blue": "#EFF6FF",
+              "success-green": "#10B981",
+              "warning-orange": "#F59E0B",
+              "danger-red": "#EF4444",
+              "gray-primary": "#374151",
+              "gray-secondary": "#6B7280",
+              "gray-heading": "#1F2937",
+              "gray-bg": "#F9FAFB",
+            },
+            fontFamily: {
+              inter: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-inter bg-gray-bg">
+    <!-- Sidebar Navigation -->
+    <div class="flex h-screen">
+      <aside
+        id="sidebar"
+        class="w-80 bg-gray-heading text-white transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out fixed lg:static inset-y-0 left-0 z-50"
+      >
+        <div
+          class="flex items-center justify-between h-16 px-6 border-b border-gray-600"
+        >
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-8 h-8 bg-secondary-blue rounded-lg flex items-center justify-center"
+            >
+              <span class="text-white font-bold text-sm">JH</span>
+            </div>
+            <span class="font-bold text-lg">JHMPRO</span>
+          </div>
+          <button id="sidebar-close" class="lg:hidden text-white">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <nav class="mt-6 pb-6">
+          <div class="space-y-1 px-6">
+            <div
+              class="flex items-center space-x-3 px-3 py-3 rounded-lg bg-gray-primary border-l-4 border-secondary-blue"
+            >
+              <i
+                class="fas fa-tachometer-alt text-secondary-blue text-lg w-5"
+              ></i>
+              <span class="text-sm font-semibold">Dashboard</span>
+            </div>
+            <a
+              href="booking-service.html"
+              class="flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-calendar-plus text-gray-400 text-lg w-5"></i>
+              <span class="text-sm font-medium">Booking Servis</span>
+            </a>
+            <a
+              href="my-vehicles.html"
+              class="flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-motorcycle text-gray-400 text-lg w-5"></i>
+              <span class="text-sm font-medium">Kendaraan Saya</span>
+            </a>
+            <a
+              href="service-history.html"
+              class="flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-history text-gray-400 text-lg w-5"></i>
+              <span class="text-sm font-medium">Riwayat Servis</span>
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Navigation -->
+        <header class="bg-white border-b border-gray-200 h-16">
+          <div class="flex items-center justify-between h-full px-6">
+            <div class="flex items-center space-x-4">
+              <button id="sidebar-toggle" class="lg:hidden text-gray-500">
+                <i class="fas fa-bars text-xl"></i>
+              </button>
+              <nav class="hidden sm:flex items-center space-x-2 text-sm">
+                <a href="#" class="text-secondary-blue">Dashboard</a>
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                <span class="text-gray-secondary">Customer</span>
+              </nav>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <button
+                class="relative p-2 text-gray-500 hover:text-gray-primary"
+              >
+                <i class="fas fa-bell text-lg"></i>
+                <span
+                  class="absolute -top-1 -right-1 w-3 h-3 bg-danger-red rounded-full"
+                ></span>
+              </button>
+              <div class="relative">
+                <button
+                  id="profile-dropdown"
+                  class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <img
+                    src="https://via.placeholder.com/32x32"
+                    alt="User"
+                    class="w-8 h-8 rounded-full"
+                  />
+                  <span class="text-sm font-medium text-gray-primary"
+                    >John Doe</span
+                  >
+                  <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                </button>
+
+                <!-- Dropdown Menu -->
+                <div
+                  id="profile-menu"
+                  class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50"
+                >
+                  <div class="py-2">
+                    <a
+                      href="#"
+                      class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                    >
+                      <i class="fas fa-user text-gray-400 mr-3"></i>
+                      Profil
+                    </a>
+                    <a
+                      href="#"
+                      class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                    >
+                      <i class="fas fa-cog text-gray-400 mr-3"></i>
+                      Pengaturan
+                    </a>
+                    <hr class="my-2 border-gray-200" />
+                    <a
+                      href="#"
+                      onclick="logoutUser(); return false;"
+                      class="flex items-center px-4 py-2 text-sm text-danger-red hover:bg-red-50 transition-colors duration-200"
+                    >
+                      <i class="fas fa-sign-out-alt text-danger-red mr-3"></i>
+                      Keluar
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto p-6">
+          <!-- Welcome Section -->
+          <div class="mb-8">
+            <h1 class="text-2xl font-semibold text-gray-heading mb-2">
+              Selamat Datang, John!
+            </h1>
+            <p class="text-gray-secondary">
+              Berikut adalah ringkasan aktivitas servis motor Anda
+            </p>
+          </div>
+
+          <!-- Stats Cards -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+          >
+            <!-- Card 1 -->
+            <div
+              class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-primary-blue"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary mb-1">Total Servis</p>
+                  <p class="text-2xl font-bold text-gray-heading">24</p>
+                  <div class="flex items-center mt-2">
+                    <i
+                      class="fas fa-arrow-up text-success-green text-xs mr-1"
+                    ></i>
+                    <span class="text-xs text-success-green">+12%</span>
+                  </div>
+                </div>
+                <div
+                  class="w-8 h-8 bg-primary-blue rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-motorcycle text-white text-sm"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div
+              class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-success-green"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary mb-1">Servis Selesai</p>
+                  <p class="text-2xl font-bold text-gray-heading">22</p>
+                  <div class="flex items-center mt-2">
+                    <i
+                      class="fas fa-arrow-up text-success-green text-xs mr-1"
+                    ></i>
+                    <span class="text-xs text-success-green">+8%</span>
+                  </div>
+                </div>
+                <div
+                  class="w-8 h-8 bg-success-green rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-check text-white text-sm"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div
+              class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-warning-orange"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary mb-1">Dalam Proses</p>
+                  <p class="text-2xl font-bold text-gray-heading">2</p>
+                  <div class="flex items-center mt-2">
+                    <i
+                      class="fas fa-clock text-warning-orange text-xs mr-1"
+                    ></i>
+                    <span class="text-xs text-warning-orange">Aktif</span>
+                  </div>
+                </div>
+                <div
+                  class="w-8 h-8 bg-warning-orange rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-clock text-white text-sm"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div
+              class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-secondary-blue"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary mb-1">Motor</p>
+                  <p class="text-2xl font-bold text-gray-heading">3</p>
+                  <div class="flex items-center mt-2">
+                    <i
+                      class="fas fa-motorcycle text-secondary-blue text-xs mr-1"
+                    ></i>
+                    <span class="text-xs text-secondary-blue">Terdaftar</span>
+                  </div>
+                </div>
+                <div
+                  class="w-8 h-8 bg-secondary-blue rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-motorcycle text-white text-sm"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="bg-white rounded-xl p-8 mb-8 shadow-sm">
+            <h2 class="text-xl font-semibold text-gray-heading mb-6">
+              Quick Actions
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <a
+                href="booking-service.html"
+                class="bg-primary-blue text-white p-6 rounded-xl flex items-center space-x-4 hover:bg-blue-900 transition-colors duration-200"
+              >
+                <div
+                  class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-calendar-plus text-xl"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold">Booking Servis Motor</h3>
+                  <p class="text-sm opacity-90">Jadwalkan servis motor Anda</p>
+                </div>
+              </a>
+
+              <a
+                href="service-history.html"
+                class="bg-gray-bg border-2 border-primary-blue text-primary-blue p-6 rounded-xl flex items-center space-x-4 hover:bg-light-blue transition-colors duration-200"
+              >
+                <div
+                  class="w-12 h-12 bg-primary-blue bg-opacity-20 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-history text-xl"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold">Riwayat Servis</h3>
+                  <p class="text-sm opacity-90">Lihat semua riwayat servis</p>
+                </div>
+              </a>
+
+              <a
+                href="my-vehicles.html"
+                class="bg-secondary-blue text-white p-6 rounded-xl flex items-center space-x-4 hover:bg-blue-700 transition-colors duration-200"
+              >
+                <div
+                  class="w-12 h-12 bg-white bg-opacity-20 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-motorcycle text-xl"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold">Kelola Kendaraan</h3>
+                  <p class="text-sm opacity-90">Tambah & kelola kendaraan</p>
+                </div>
+              </a>
+
+              <button
+                class="bg-gray-bg border-2 border-success-green text-success-green p-6 rounded-xl flex items-center space-x-4 hover:bg-green-50 transition-colors duration-200"
+              >
+                <div
+                  class="w-12 h-12 bg-success-green bg-opacity-10 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-file-invoice text-xl"></i>
+                </div>
+                <div class="text-left">
+                  <h3 class="font-semibold">Download Invoice</h3>
+                  <p class="text-sm opacity-75">Unduh faktur servis terbaru</p>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Recent Bookings -->
+          <div class="bg-white rounded-xl shadow-sm mb-8">
+            <div class="p-6 border-b border-gray-200">
+              <div class="flex items-center justify-between">
+                <h2 class="text-xl font-semibold text-gray-heading">
+                  Booking Terbaru
+                </h2>
+                <a
+                  href="#"
+                  class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                  >Lihat Semua</a
+                >
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-gray-bg">
+                  <tr>
+                    <th
+                      class="text-left p-4 text-sm font-semibold text-gray-primary"
+                    >
+                      Tanggal
+                    </th>
+                    <th
+                      class="text-left p-4 text-sm font-semibold text-gray-primary"
+                    >
+                      Motor
+                    </th>
+                    <th
+                      class="text-left p-4 text-sm font-semibold text-gray-primary"
+                    >
+                      Layanan
+                    </th>
+                    <th
+                      class="text-left p-4 text-sm font-semibold text-gray-primary"
+                    >
+                      Status
+                    </th>
+                    <th
+                      class="text-left p-4 text-sm font-semibold text-gray-primary"
+                    >
+                      Aksi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b border-gray-100 hover:bg-light-blue">
+                    <td class="p-4 text-sm text-gray-primary">15 Des 2024</td>
+                    <td class="p-4">
+                      <div>
+                        <p class="text-sm font-medium text-gray-heading">
+                          Honda Vario 150
+                        </p>
+                        <p class="text-xs text-gray-secondary">B 1234 XYZ</p>
+                      </div>
+                    </td>
+                    <td class="p-4 text-sm text-gray-primary">
+                      Servis Motor Rutin + Ganti Oli
+                    </td>
+                    <td class="p-4">
+                      <span
+                        class="px-3 py-1 text-xs font-medium bg-warning-orange text-white rounded-full"
+                        >Dalam Proses</span
+                      >
+                    </td>
+                    <td class="p-4">
+                      <button
+                        class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                      >
+                        Detail
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="border-b border-gray-100 hover:bg-light-blue">
+                    <td class="p-4 text-sm text-gray-primary">12 Des 2024</td>
+                    <td class="p-4">
+                      <div>
+                        <p class="text-sm font-medium text-gray-heading">
+                          Yamaha PCX 160
+                        </p>
+                        <p class="text-xs text-gray-secondary">B 5678 ABC</p>
+                      </div>
+                    </td>
+                    <td class="p-4 text-sm text-gray-primary">Tune Up Motor</td>
+                    <td class="p-4">
+                      <span
+                        class="px-3 py-1 text-xs font-medium bg-success-green text-white rounded-full"
+                        >Selesai</span
+                      >
+                    </td>
+                    <td class="p-4">
+                      <button
+                        class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                      >
+                        Detail
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="border-b border-gray-100 hover:bg-light-blue">
+                    <td class="p-4 text-sm text-gray-primary">10 Des 2024</td>
+                    <td class="p-4">
+                      <div>
+                        <p class="text-sm font-medium text-gray-heading">
+                          Yamaha NMAX
+                        </p>
+                        <p class="text-xs text-gray-secondary">B 9012 DEF</p>
+                      </div>
+                    </td>
+                    <td class="p-4 text-sm text-gray-primary">Perbaikan CVT</td>
+                    <td class="p-4">
+                      <span
+                        class="px-3 py-1 text-xs font-medium bg-success-green text-white rounded-full"
+                        >Selesai</span
+                      >
+                    </td>
+                    <td class="p-4">
+                      <button
+                        class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                      >
+                        Detail
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Service History Summary -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Next Service Reminder -->
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <h3 class="text-lg font-semibold text-gray-heading mb-4">
+                Pengingat Servis
+              </h3>
+              <div class="space-y-4">
+                <div
+                  class="flex items-center space-x-4 p-4 bg-light-blue rounded-lg"
+                >
+                  <div
+                    class="w-12 h-12 bg-warning-orange rounded-lg flex items-center justify-center"
+                  >
+                    <i class="fas fa-exclamation text-white"></i>
+                  </div>
+                  <div class="flex-1">
+                    <p class="font-medium text-gray-heading">Honda Vario 150</p>
+                    <p class="text-sm text-gray-secondary">
+                      Servis rutin dalam 5 hari
+                    </p>
+                  </div>
+                  <button
+                    class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                  >
+                    Booking
+                  </button>
+                </div>
+                <div
+                  class="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg"
+                >
+                  <div
+                    class="w-12 h-12 bg-secondary-blue rounded-lg flex items-center justify-center"
+                  >
+                    <i class="fas fa-info text-white"></i>
+                  </div>
+                  <div class="flex-1">
+                    <p class="font-medium text-gray-heading">Yamaha PCX 160</p>
+                    <p class="text-sm text-gray-secondary">
+                      Ganti oli dalam 2 minggu
+                    </p>
+                  </div>
+                  <button
+                    class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                  >
+                    Booking
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <h3 class="text-lg font-semibold text-gray-heading mb-4">
+                Aktivitas Terbaru
+              </h3>
+              <div class="space-y-4">
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-success-green rounded-full mt-2"></div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-heading">
+                      Servis Honda Vario 150 selesai
+                    </p>
+                    <p class="text-xs text-gray-secondary">2 jam yang lalu</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div
+                    class="w-2 h-2 bg-secondary-blue rounded-full mt-2"
+                  ></div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-heading">
+                      Booking dikonfirmasi
+                    </p>
+                    <p class="text-xs text-gray-secondary">1 hari yang lalu</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div
+                    class="w-2 h-2 bg-warning-orange rounded-full mt-2"
+                  ></div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-heading">
+                      Reminder servis Yamaha PCX 160
+                    </p>
+                    <p class="text-xs text-gray-secondary">3 hari yang lalu</p>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <div class="w-2 h-2 bg-success-green rounded-full mt-2"></div>
+                  <div>
+                    <p class="text-sm font-medium text-gray-heading">
+                      Pembayaran berhasil
+                    </p>
+                    <p class="text-xs text-gray-secondary">
+                      1 minggu yang lalu
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div
+      id="sidebar-overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"
+    ></div>
+
+    <script>
+      // Sidebar toggle functionality
+      const sidebarToggle = document.getElementById("sidebar-toggle");
+      const sidebarClose = document.getElementById("sidebar-close");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+      function showSidebar() {
+        sidebar.classList.remove("-translate-x-full");
+        sidebarOverlay.classList.remove("hidden");
+      }
+
+      function hideSidebar() {
+        sidebar.classList.add("-translate-x-full");
+        sidebarOverlay.classList.add("hidden");
+      }
+
+      sidebarToggle.addEventListener("click", showSidebar);
+      sidebarClose.addEventListener("click", hideSidebar);
+      sidebarOverlay.addEventListener("click", hideSidebar);
+
+      // Close sidebar when clicking on nav links (mobile)
+      document.querySelectorAll("#sidebar nav a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth < 1024) {
+            hideSidebar();
+          }
+        });
+      });
+
+      // Profile dropdown functionality
+      const profileDropdown = document.getElementById("profile-dropdown");
+      const profileMenu = document.getElementById("profile-menu");
+
+      function toggleProfileMenu() {
+        profileMenu.classList.toggle("hidden");
+      }
+
+      function hideProfileMenu() {
+        profileMenu.classList.add("hidden");
+      }
+
+      profileDropdown.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleProfileMenu();
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !profileDropdown.contains(e.target) &&
+          !profileMenu.contains(e.target)
+        ) {
+          hideProfileMenu();
+        }
+      });
+
+      // Close dropdown when pressing escape
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          hideProfileMenu();
+        }
+      });
+    </script>
+
+    <!-- Navigation Enhancement Script -->
+    <script src="../navigation.js"></script>
+    <script src="../auth.js"></script>
+  </body>
+</html>

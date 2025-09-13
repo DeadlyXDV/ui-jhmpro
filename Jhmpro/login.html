@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - JHMPRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="auth.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "primary-blue": "#1E3A8A",
+              "secondary-blue": "#3B82F6",
+              "light-blue": "#EFF6FF",
+              "success-green": "#10B981",
+              "warning-orange": "#F59E0B",
+              "danger-red": "#EF4444",
+              "gray-primary": "#374151",
+              "gray-secondary": "#6B7280",
+              "gray-heading": "#1F2937",
+              "gray-bg": "#F9FAFB",
+            },
+            fontFamily: {
+              inter: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="font-inter bg-gradient-to-br from-light-blue to-gray-bg min-h-screen"
+  >
+    <!-- Login Container -->
+    <div
+      class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+    >
+      <div class="max-w-md w-full space-y-8">
+        <!-- Logo and Header -->
+        <div class="text-center">
+          <div
+            class="mx-auto w-32 h-10 bg-primary-blue rounded-lg flex items-center justify-center mb-6"
+          >
+            <span class="text-white font-bold text-xl">JHMPRO</span>
+          </div>
+          <h2 class="text-3xl font-bold text-gray-heading mb-2">
+            Masuk ke Akun Anda
+          </h2>
+          <p class="text-gray-secondary">
+            Selamat datang kembali! Silakan masuk untuk melanjutkan.
+          </p>
+        </div>
+
+        <!-- Login Form -->
+        <div class="bg-white rounded-xl shadow-lg p-8">
+          <form class="space-y-6" id="loginForm">
+            <!-- Email Field -->
+            <div>
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-heading mb-2"
+              >
+                <i class="fas fa-envelope mr-2 text-gray-secondary"></i>
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all duration-200 text-gray-primary"
+                placeholder="Masukkan email Anda"
+              />
+              <div class="text-danger-red text-sm mt-1 hidden" id="emailError">
+                Email tidak valid
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div>
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-heading mb-2"
+              >
+                <i class="fas fa-lock mr-2 text-gray-secondary"></i>
+                Password
+              </label>
+              <div class="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent transition-all duration-200 text-gray-primary pr-12"
+                  placeholder="Masukkan password Anda"
+                />
+                <button
+                  type="button"
+                  class="absolute inset-y-0 right-0 pr-3 flex items-center"
+                  onclick="togglePassword('password')"
+                >
+                  <i
+                    class="fas fa-eye text-gray-secondary hover:text-gray-primary transition-colors"
+                    id="passwordEye"
+                  ></i>
+                </button>
+              </div>
+              <div
+                class="text-danger-red text-sm mt-1 hidden"
+                id="passwordError"
+              >
+                Password minimal 6 karakter
+              </div>
+            </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <input
+                  id="remember-me"
+                  name="remember-me"
+                  type="checkbox"
+                  class="h-4 w-4 text-primary-blue focus:ring-primary-blue border-gray-300 rounded"
+                />
+                <label
+                  for="remember-me"
+                  class="ml-2 block text-sm text-gray-secondary"
+                >
+                  Ingat saya
+                </label>
+              </div>
+              <div class="text-sm">
+                <a
+                  href="forgot-password.html"
+                  class="text-primary-blue hover:text-secondary-blue font-medium transition-colors"
+                >
+                  Lupa password?
+                </a>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div>
+              <button
+                type="submit"
+                class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-primary-blue hover:bg-secondary-blue focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-blue transition-all duration-200 ripple"
+              >
+                <span class="absolute left-0 inset-y-0 flex items-center pl-3">
+                  <i
+                    class="fas fa-sign-in-alt group-hover:text-white"
+                    aria-hidden="true"
+                  ></i>
+                </span>
+                <span id="loginText">Masuk</span>
+                <div class="hidden ml-2" id="loginSpinner">
+                  <i class="fas fa-spinner fa-spin"></i>
+                </div>
+              </button>
+            </div>
+
+            <!-- Divider -->
+            <div class="relative">
+              <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300"></div>
+              </div>
+              <div class="relative flex justify-center text-sm">
+                <span class="px-2 bg-white text-gray-secondary"
+                  >Atau masuk dengan</span
+                >
+              </div>
+            </div>
+
+            <!-- Social Login -->
+            <div class="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors"
+              >
+                <i class="fab fa-google text-red-500 mr-2"></i>
+                Google
+              </button>
+              <button
+                type="button"
+                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 transition-colors"
+              >
+                <i class="fab fa-facebook text-blue-600 mr-2"></i>
+                Facebook
+              </button>
+            </div>
+
+            <!-- Register Link -->
+            <div class="text-center">
+              <p class="text-sm text-gray-secondary">
+                Belum punya akun?
+                <a
+                  href="register.html"
+                  class="font-medium text-primary-blue hover:text-secondary-blue transition-colors"
+                >
+                  Daftar sekarang
+                </a>
+              </p>
+            </div>
+          </form>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center">
+          <p class="text-xs text-gray-secondary">
+            © 2025 JHMPRO. Bengkel Motor Terpercaya.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+      // Prevent access if already logged in
+      document.addEventListener("DOMContentLoaded", function () {
+        RouteProtection.preventAuthAccess();
+      });
+
+      // Form validation and submission
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const email = document.getElementById("email").value.trim();
+          const password = document.getElementById("password").value;
+          const rememberMe = document.getElementById("remember-me").checked;
+
+          // Reset error states
+          FormUtils.hideError("email");
+          FormUtils.hideError("password");
+
+          let isValid = true;
+
+          // Email validation
+          if (!authManager.validateEmail(email)) {
+            FormUtils.showError("email", "Email tidak valid");
+            isValid = false;
+          }
+
+          // Password validation
+          if (password.length < 6) {
+            FormUtils.showError("password", "Password minimal 6 karakter");
+            isValid = false;
+          }
+
+          if (isValid) {
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const loginText = document.getElementById("loginText");
+            const loginSpinner = document.getElementById("loginSpinner");
+
+            submitBtn.disabled = true;
+            loginText.textContent = "Sedang masuk...";
+            loginSpinner.classList.remove("hidden");
+
+            // Simulate login process
+            setTimeout(() => {
+              try {
+                const user = authManager.login(email, password, rememberMe);
+
+                // Store user data
+                localStorage.setItem(
+                  "jhmpro_current_user",
+                  JSON.stringify(user)
+                );
+
+                // Show success notification
+                NotificationManager.show(
+                  "Login berhasil! Selamat datang " + user.fullName,
+                  "success"
+                );
+
+                // Redirect based on user type
+                setTimeout(() => {
+                  if (user.userType === "admin") {
+                    window.location.href = "admin/admin-dashboard.html";
+                  } else {
+                    window.location.href = "Customer/dashboard-customer.html";
+                  }
+                }, 1000);
+              } catch (error) {
+                submitBtn.disabled = false;
+                loginText.textContent = "Masuk";
+                loginSpinner.classList.add("hidden");
+
+                NotificationManager.show(error.message, "error");
+
+                // Show specific field errors
+                if (error.message.includes("Email")) {
+                  FormUtils.showError("email", error.message);
+                } else if (error.message.includes("Password")) {
+                  FormUtils.showError("password", error.message);
+                }
+              }
+            }, 1500);
+          }
+        });
+
+      // Add demo credentials helper
+    </script>
+
+    <style>
+      .ripple-effect {
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.6);
+        transform: scale(0);
+        animation: ripple-animation 0.6s linear;
+        pointer-events: none;
+      }
+
+      @keyframes ripple-animation {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+    </style>
+  </body>
+</html>

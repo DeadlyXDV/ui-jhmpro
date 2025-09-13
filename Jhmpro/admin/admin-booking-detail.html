@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Detail Booking #BK-001 - JHMPRO Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "primary-blue": "#1E3A8A",
+              "secondary-blue": "#3B82F6",
+              "light-blue": "#EFF6FF",
+              "success-green": "#10B981",
+              "warning-orange": "#F59E0B",
+              "danger-red": "#EF4444",
+              purple: "#8B5CF6",
+              "gray-primary": "#374151",
+              "gray-secondary": "#6B7280",
+              "gray-heading": "#1F2937",
+              "gray-bg": "#F9FAFB",
+            },
+            fontFamily: {
+              inter: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-inter bg-gray-bg">
+    <!-- Sidebar Navigation -->
+    <div class="flex h-screen">
+      <aside
+        id="sidebar"
+        class="w-80 bg-gray-heading text-white transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out fixed lg:static inset-y-0 left-0 z-50"
+      >
+        <div
+          class="flex items-center justify-between h-16 px-6 border-b border-gray-600"
+        >
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-8 h-8 bg-secondary-blue rounded-lg flex items-center justify-center"
+            >
+              <span class="text-white font-bold text-sm">JH</span>
+            </div>
+            <span class="font-bold text-lg">JHMPRO Admin</span>
+          </div>
+          <button id="sidebar-close" class="lg:hidden text-white">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <nav class="mt-8">
+          <div class="space-y-2 px-6">
+            <a
+              href="admin-dashboard.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-tachometer-alt text-gray-400 text-lg"></i>
+              <span>Dashboard</span>
+            </a>
+            <a
+              href="admin-booking.html"
+              class="flex items-center space-x-3 p-3 rounded-lg bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-calendar-alt text-secondary-blue text-lg"></i>
+              <span class="font-medium">Manajemen Booking</span>
+            </a>
+            <a
+              href="admin-customers.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-users text-gray-400 text-lg"></i>
+              <span>Manajemen Pelanggan</span>
+            </a>
+            <a
+              href="admin-services.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-tools text-gray-400 text-lg"></i>
+              <span>Manajemen Layanan</span>
+            </a>
+            <a
+              href="admin-reports.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-chart-bar text-gray-400 text-lg"></i>
+              <span>Laporan</span>
+            </a>
+            <a
+              href="admin-inventory.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-box text-gray-400 text-lg"></i>
+              <span>Inventory</span>
+            </a>
+            <a
+              href="admin-staff.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-user-tie text-gray-400 text-lg"></i>
+              <span>Manajemen Staff</span>
+            </a>
+            <a
+              href="#"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-cog text-gray-400 text-lg"></i>
+              <span>Pengaturan</span>
+            </a>
+          </div>
+
+          <div class="mt-auto px-6 pb-6">
+            <a
+              href="#" onclick="logoutUser(); return false;"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200 text-danger-red"
+            >
+              <i class="fas fa-sign-out-alt text-lg"></i>
+              <span>Keluar</span>
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Navigation -->
+        <header class="bg-white border-b border-gray-200 h-16">
+          <div class="flex items-center justify-between h-full px-6">
+            <div class="flex items-center space-x-4">
+              <button id="sidebar-toggle" class="lg:hidden text-gray-500">
+                <i class="fas fa-bars text-xl"></i>
+              </button>
+              <nav class="hidden sm:flex items-center space-x-2 text-sm">
+                <a href="admin-dashboard.html" class="text-secondary-blue"
+                  >Dashboard</a
+                >
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                <a href="admin-booking.html" class="text-secondary-blue"
+                  >Manajemen Booking</a
+                >
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                <span class="text-gray-secondary">Detail Booking</span>
+              </nav>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <button
+                class="relative p-2 text-gray-500 hover:text-gray-primary"
+              >
+                <i class="fas fa-bell text-lg"></i>
+                <span
+                  class="absolute -top-1 -right-1 w-3 h-3 bg-danger-red rounded-full"
+                ></span>
+              </button>
+              <div class="flex items-center space-x-3">
+                <img
+                  src="https://via.placeholder.com/32x32"
+                  alt="Admin"
+                  class="w-8 h-8 rounded-full"
+                />
+                <span class="text-sm font-medium text-gray-primary"
+                  >Admin User</span
+                >
+                <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto p-6">
+          <!-- Page Header -->
+          <div class="mb-8">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="flex items-center space-x-3 mb-2">
+                  <h1 class="text-2xl font-semibold text-gray-heading">
+                    Detail Booking #BK-001
+                  </h1>
+                  <span
+                    class="px-3 py-1 text-sm font-medium bg-warning-orange text-white rounded-full"
+                    >Pending</span
+                  >
+                </div>
+                <p class="text-gray-secondary">
+                  15 Desember 2024, 10:00 WIB • Dibuat 2 jam yang lalu
+                </p>
+              </div>
+              <div class="flex items-center space-x-3">
+                <button
+                  class="px-4 py-2 bg-secondary-blue text-white rounded-lg hover:bg-blue-600 transition-colors duration-200"
+                >
+                  <i class="fas fa-edit mr-2"></i>Edit
+                </button>
+                <a
+                  href="admin-booking.html"
+                  class="flex items-center space-x-2 px-4 py-2 text-sm bg-gray-100 text-gray-primary rounded-lg hover:bg-gray-200 transition-colors duration-200"
+                >
+                  <i class="fas fa-arrow-left"></i>
+                  <span>Kembali</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Content -->
+            <div class="lg:col-span-2 space-y-6">
+              <!-- Customer Information -->
+              <div class="bg-white rounded-xl shadow-sm p-6">
+                <div class="flex items-center justify-between mb-6">
+                  <h2 class="text-lg font-semibold text-gray-heading">
+                    <i class="fas fa-user text-secondary-blue mr-2"></i>
+                    Informasi Pelanggan
+                  </h2>
+                  <button
+                    class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                  >
+                    <i class="fas fa-external-link-alt mr-1"></i>Lihat Profil
+                  </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="text-sm text-gray-secondary"
+                      >Nama Lengkap</label
+                    >
+                    <p class="font-medium text-gray-heading mt-1">John Doe</p>
+                  </div>
+                  <div>
+                    <label class="text-sm text-gray-secondary">Email</label>
+                    <p class="font-medium text-gray-heading mt-1">
+                      john@email.com
+                    </p>
+                  </div>
+                  <div>
+                    <label class="text-sm text-gray-secondary">Telepon</label>
+                    <p class="font-medium text-gray-heading mt-1">
+                      +62 812 3456 7890
+                    </p>
+                  </div>
+                  <div>
+                    <label class="text-sm text-gray-secondary"
+                      >Tipe Pelanggan</label
+                    >
+                    <p class="font-medium text-gray-heading mt-1">
+                      <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-green text-white"
+                      >
+                        <i class="fas fa-star mr-1"></i>VIP
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                <div class="mt-6">
+                  <label class="text-sm text-gray-secondary">Alamat</label>
+                  <p class="font-medium text-gray-heading mt-1">
+                    Jl. Sudirman No. 123, Blok A, RT 01/RW 02, Kelurahan
+                    Menteng, Kecamatan Menteng, Jakarta Pusat 10310
+                  </p>
+                </div>
+              </div>
+
+              <!-- Vehicle Details -->
+              <div class="bg-white rounded-xl shadow-sm p-6">
+                <h2 class="text-lg font-semibold text-gray-heading mb-6">
+                  <i class="fas fa-car text-secondary-blue mr-2"></i>
+                  Detail Kendaraan
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="text-sm text-gray-secondary">Kendaraan</label>
+                    <p class="font-medium text-gray-heading mt-1">
+                      Honda Civic 2020
+                    </p>
+                  </div>
+                  <div>
+                    <label class="text-sm text-gray-secondary"
+                      >Nomor Polisi</label
+                    >
+                    <p class="font-medium text-gray-heading mt-1">B 1234 XYZ</p>
+                  </div>
+                  <div>
+                    <label class="text-sm text-gray-secondary">Kilometer</label>
+                    <p class="font-medium text-gray-heading mt-1">45.000 km</p>
+                  </div>
+                  <div>
+                    <label class="text-sm text-gray-secondary">Tahun</label>
+                    <p class="font-medium text-gray-heading mt-1">2020</p>
+                  </div>
+                  <div>
+                    <label class="text-sm text-gray-secondary">Warna</label>
+                    <p class="font-medium text-gray-heading mt-1">
+                      Putih Mutiara
+                    </p>
+                  </div>
+                  <div>
+                    <label class="text-sm text-gray-secondary">Kondisi</label>
+                    <p class="font-medium text-gray-heading mt-1">
+                      <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-green text-white"
+                      >
+                        Baik
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Service Details -->
+              <div class="bg-white rounded-xl shadow-sm p-6">
+                <h2 class="text-lg font-semibold text-gray-heading mb-6">
+                  <i class="fas fa-wrench text-secondary-blue mr-2"></i>
+                  Detail Layanan
+                </h2>
+
+                <!-- Service Package -->
+                <div class="mb-6">
+                  <h3 class="text-md font-medium text-gray-heading mb-3">
+                    Paket Layanan
+                  </h3>
+                  <div
+                    class="p-4 bg-blue-50 rounded-lg border-l-4 border-secondary-blue"
+                  >
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="font-medium text-gray-heading">
+                          Servis Rutin 15.000 KM
+                        </p>
+                        <p class="text-sm text-gray-secondary">
+                          Pemeriksaan menyeluruh, tune-up engine, inspeksi
+                          sistem
+                        </p>
+                      </div>
+                      <div class="text-right">
+                        <p class="text-sm text-gray-secondary">Biaya Jasa</p>
+                        <p class="font-semibold text-warning-orange">
+                          Akan dihitung setelah inspeksi
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Sparepart List -->
+                <div class="mb-6">
+                  <h3 class="text-md font-medium text-gray-heading mb-3">
+                    Estimasi Sparepart Dibutuhkan
+                  </h3>
+                  <div class="space-y-3">
+                    <div
+                      class="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                    >
+                      <div class="flex items-center space-x-3">
+                        <div
+                          class="w-8 h-8 bg-success-green rounded-lg flex items-center justify-center"
+                        >
+                          <i class="fas fa-oil-can text-white text-sm"></i>
+                        </div>
+                        <div>
+                          <p class="font-medium text-gray-heading text-sm">
+                            Oli Mesin 10W-30 (4L)
+                          </p>
+                          <p class="text-xs text-gray-secondary">
+                            Honda Genuine Oil
+                          </p>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <p class="font-semibold text-gray-heading">Rp 85.000</p>
+                        <p class="text-xs text-success-green">✓ Ready Stock</p>
+                      </div>
+                    </div>
+
+                    <div
+                      class="flex items-center justify-between p-3 bg-gray-50 rounded-lg"
+                    >
+                      <div class="flex items-center space-x-3">
+                        <div
+                          class="w-8 h-8 bg-secondary-blue rounded-lg flex items-center justify-center"
+                        >
+                          <i class="fas fa-filter text-white text-sm"></i>
+                        </div>
+                        <div>
+                          <p class="font-medium text-gray-heading text-sm">
+                            Filter Oli
+                          </p>
+                          <p class="text-xs text-gray-secondary">OEM Quality</p>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <p class="font-semibold text-gray-heading">Rp 25.000</p>
+                        <p class="text-xs text-success-green">✓ Ready Stock</p>
+                      </div>
+                    </div>
+
+                    <div
+                      class="flex items-center justify-between p-3 bg-gray-50 rounded-lg opacity-60"
+                    >
+                      <div class="flex items-center space-x-3">
+                        <div
+                          class="w-8 h-8 bg-gray-400 rounded-lg flex items-center justify-center"
+                        >
+                          <i class="fas fa-cog text-white text-sm"></i>
+                        </div>
+                        <div>
+                          <p class="font-medium text-gray-heading text-sm">
+                            Filter Udara
+                          </p>
+                          <p class="text-xs text-gray-secondary">
+                            Mungkin perlu diganti - akan dicek
+                          </p>
+                        </div>
+                      </div>
+                      <div class="text-right">
+                        <p class="font-semibold text-gray-heading">Rp 45.000</p>
+                        <p class="text-xs text-warning-orange">
+                          ⚠ Pending Inspection
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Cost Summary -->
+                <div class="border-t border-gray-200 pt-4">
+                  <div class="space-y-2">
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-secondary"
+                        >Sparepart (Confirmed):</span
+                      >
+                      <span class="font-medium text-gray-heading"
+                        >Rp 110.000</span
+                      >
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-secondary"
+                        >Sparepart (Pending):</span
+                      >
+                      <span class="font-medium text-warning-orange"
+                        >Rp 45.000</span
+                      >
+                    </div>
+                    <div class="flex justify-between items-center">
+                      <span class="text-gray-secondary">Biaya Jasa:</span>
+                      <span class="font-medium text-warning-orange"
+                        >TBD setelah inspeksi</span
+                      >
+                    </div>
+                    <div class="border-t border-gray-300 pt-2 mt-3">
+                      <div class="flex justify-between items-center">
+                        <span class="text-lg font-semibold text-gray-heading"
+                          >Estimasi Total:</span
+                        >
+                        <div class="text-right">
+                          <span class="text-xl font-bold text-primary-blue"
+                            >Rp 110.000 - 300.000</span
+                          >
+                          <p class="text-xs text-gray-secondary">
+                            *Final cost after inspection
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Additional Services That May Be Found -->
+                <div
+                  class="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200"
+                >
+                  <div class="flex items-start space-x-3">
+                    <i class="fas fa-info-circle text-warning-orange mt-1"></i>
+                    <div>
+                      <h4 class="font-medium text-gray-heading mb-2">
+                        Catatan Penting
+                      </h4>
+                      <ul class="text-sm text-gray-secondary space-y-1">
+                        <li>• Harga sparepart sudah termasuk dalam estimasi</li>
+                        <li>
+                          • Biaya jasa akan ditentukan setelah inspeksi
+                          kendaraan
+                        </li>
+                        <li>
+                          • Jika ditemukan kerusakan tambahan, customer akan
+                          dikonfirmasi terlebih dahulu
+                        </li>
+                        <li>
+                          • Estimasi waktu: 1.5 - 2.5 jam (tergantung kondisi
+                          kendaraan)
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Schedule & Assignment -->
+              <div class="bg-white rounded-xl shadow-sm p-6">
+                <h2 class="text-lg font-semibold text-gray-heading mb-6">
+                  <i class="fas fa-calendar-alt text-secondary-blue mr-2"></i>
+                  Jadwal & Penugasan
+                </h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label class="text-sm text-gray-secondary"
+                      >Tanggal & Waktu</label
+                    >
+                    <p class="font-medium text-gray-heading mt-1">
+                      15 Desember 2024, 10:00 WIB
+                    </p>
+                  </div>
+                  <div>
+                    <label class="text-sm text-gray-secondary"
+                      >Status Jadwal</label
+                    >
+                    <p class="font-medium text-gray-heading mt-1">
+                      <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning-orange text-white"
+                      >
+                        <i class="fas fa-clock mr-1"></i>Menunggu Konfirmasi
+                      </span>
+                    </p>
+                  </div>
+                  <div>
+                    <label class="text-sm text-gray-secondary">Teknisi</label>
+                    <p class="font-medium text-gray-heading mt-1">
+                      <span class="text-gray-400">Belum ditentukan</span>
+                    </p>
+                  </div>
+                  <div>
+                    <label class="text-sm text-gray-secondary">Bay</label>
+                    <p class="font-medium text-gray-heading mt-1">
+                      <span class="text-gray-400">Akan dialokasikan</span>
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Quick Assignment Section -->
+                <div class="mt-6 p-4 bg-light-blue rounded-lg">
+                  <p class="text-sm font-medium text-primary-blue mb-3">
+                    Atur Penugasan
+                  </p>
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <select
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary-blue focus:border-transparent"
+                    >
+                      <option value="">Pilih Teknisi</option>
+                      <option value="agus">Agus Santoso - Available</option>
+                      <option value="budi">Budi Wahyono - Available</option>
+                      <option value="charlie">Charlie Indra - Available</option>
+                    </select>
+                    <select
+                      class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-secondary-blue focus:border-transparent"
+                    >
+                      <option value="">Pilih Bay</option>
+                      <option value="bay1">Bay 1 - Available</option>
+                      <option value="bay2">Bay 2 - Available</option>
+                      <option value="bay3">Bay 3 - Occupied</option>
+                      <option value="bay4">Bay 4 - Available</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Customer Notes -->
+              <div class="bg-white rounded-xl shadow-sm p-6">
+                <h2 class="text-lg font-semibold text-gray-heading mb-6">
+                  <i class="fas fa-sticky-note text-secondary-blue mr-2"></i>
+                  Catatan Pelanggan
+                </h2>
+                <div class="bg-gray-50 p-4 rounded-lg">
+                  <p class="text-gray-heading">
+                    Suara mesin agak kasar saat idle dan ada suara berdecit pada
+                    rem belakang. Mohon diperiksa juga kondisi ban karena
+                    sepertinya sudah tipis. Terima kasih.
+                  </p>
+                </div>
+              </div>
+
+              <!-- History & Updates -->
+              <div class="bg-white rounded-xl shadow-sm p-6">
+                <h2 class="text-lg font-semibold text-gray-heading mb-6">
+                  <i class="fas fa-history text-secondary-blue mr-2"></i>
+                  Riwayat & Update
+                </h2>
+
+                <div class="space-y-4">
+                  <div class="flex items-start space-x-4">
+                    <div
+                      class="w-2 h-2 bg-warning-orange rounded-full mt-2"
+                    ></div>
+                    <div class="flex-1">
+                      <div class="flex items-center justify-between">
+                        <p class="font-medium text-gray-heading">
+                          Booking dibuat
+                        </p>
+                        <span class="text-sm text-gray-secondary"
+                          >2 jam yang lalu</span
+                        >
+                      </div>
+                      <p class="text-sm text-gray-secondary">
+                        Booking #BK-001 dibuat oleh pelanggan melalui website
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start space-x-4">
+                    <div
+                      class="w-2 h-2 bg-secondary-blue rounded-full mt-2"
+                    ></div>
+                    <div class="flex-1">
+                      <div class="flex items-center justify-between">
+                        <p class="font-medium text-gray-heading">
+                          Notifikasi dikirim
+                        </p>
+                        <span class="text-sm text-gray-secondary"
+                          >1 jam yang lalu</span
+                        >
+                      </div>
+                      <p class="text-sm text-gray-secondary">
+                        Email konfirmasi booking telah dikirim ke pelanggan
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start space-x-4">
+                    <div class="w-2 h-2 bg-gray-300 rounded-full mt-2"></div>
+                    <div class="flex-1">
+                      <div class="flex items-center justify-between">
+                        <p class="font-medium text-gray-heading">
+                          Menunggu konfirmasi admin
+                        </p>
+                        <span class="text-sm text-gray-secondary"
+                          >Sekarang</span
+                        >
+                      </div>
+                      <p class="text-sm text-gray-secondary">
+                        Booking menunggu konfirmasi dari admin untuk proses
+                        lebih lanjut
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Sidebar -->
+            <div class="lg:col-span-1">
+              <div class="bg-white rounded-xl shadow-sm p-6 sticky top-6">
+                <h3 class="text-lg font-semibold text-gray-heading mb-6">
+                  Quick Actions
+                </h3>
+
+                <!-- Status Actions -->
+                <div class="space-y-3 mb-6">
+                  <button
+                    class="w-full px-4 py-3 bg-success-green text-white rounded-lg hover:bg-green-600 transition-colors duration-200 flex items-center space-x-2"
+                  >
+                    <i class="fas fa-check"></i>
+                    <span>Konfirmasi Booking</span>
+                  </button>
+                  <button
+                    class="w-full px-4 py-3 bg-danger-red text-white rounded-lg hover:bg-red-600 transition-colors duration-200 flex items-center space-x-2"
+                  >
+                    <i class="fas fa-times"></i>
+                    <span>Tolak Booking</span>
+                  </button>
+                  <button
+                    class="w-full px-4 py-3 bg-warning-orange text-white rounded-lg hover:bg-orange-600 transition-colors duration-200 flex items-center space-x-2"
+                  >
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Reschedule</span>
+                  </button>
+                </div>
+
+                <!-- Communication Actions -->
+                <div class="border-t border-gray-200 pt-6 mb-6">
+                  <h4 class="text-sm font-medium text-gray-700 mb-3">
+                    Komunikasi
+                  </h4>
+                  <div class="space-y-2">
+                    <button
+                      class="w-full px-4 py-2 bg-secondary-blue text-white rounded-lg hover:bg-blue-600 transition-colors duration-200 flex items-center space-x-2 text-sm"
+                    >
+                      <i class="fas fa-envelope"></i>
+                      <span>Kirim Email</span>
+                    </button>
+                    <button
+                      class="w-full px-4 py-2 bg-success-green text-white rounded-lg hover:bg-green-600 transition-colors duration-200 flex items-center space-x-2 text-sm"
+                    >
+                      <i class="fas fa-phone"></i>
+                      <span>Hubungi via WhatsApp</span>
+                    </button>
+                    <button
+                      class="w-full px-4 py-2 bg-purple text-white rounded-lg hover:bg-purple-600 transition-colors duration-200 flex items-center space-x-2 text-sm"
+                    >
+                      <i class="fas fa-sms"></i>
+                      <span>Kirim SMS</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Additional Actions -->
+                <div class="border-t border-gray-200 pt-6">
+                  <h4 class="text-sm font-medium text-gray-700 mb-3">
+                    Lainnya
+                  </h4>
+                  <div class="space-y-2">
+                    <button
+                      class="w-full px-4 py-2 border border-gray-300 text-gray-primary rounded-lg hover:bg-gray-50 transition-colors duration-200 flex items-center space-x-2 text-sm"
+                    >
+                      <i class="fas fa-print"></i>
+                      <span>Print Detail</span>
+                    </button>
+                    <button
+                      class="w-full px-4 py-2 border border-gray-300 text-gray-primary rounded-lg hover:bg-gray-50 transition-colors duration-200 flex items-center space-x-2 text-sm"
+                    >
+                      <i class="fas fa-file-pdf"></i>
+                      <span>Export PDF</span>
+                    </button>
+                    <button
+                      class="w-full px-4 py-2 border border-gray-300 text-gray-primary rounded-lg hover:bg-gray-50 transition-colors duration-200 flex items-center space-x-2 text-sm"
+                    >
+                      <i class="fas fa-copy"></i>
+                      <span>Duplicate Booking</span>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Booking Summary -->
+                <div class="border-t border-gray-200 pt-6 mt-6">
+                  <h4 class="text-sm font-medium text-gray-700 mb-3">
+                    Ringkasan
+                  </h4>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                      <span class="text-gray-secondary">Total Layanan:</span>
+                      <span class="font-medium text-gray-heading"
+                        >Rp 450.000</span
+                      >
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-secondary">Estimasi Waktu:</span>
+                      <span class="font-medium text-gray-heading">2.5 jam</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-secondary">Status:</span>
+                      <span
+                        class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-warning-orange text-white"
+                      >
+                        Pending
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div
+      id="sidebar-overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"
+    ></div>
+
+    <!-- Confirmation Modal -->
+    <div
+      id="confirmation-modal"
+      class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4"
+    >
+      <div class="bg-white rounded-2xl max-w-md w-full p-6">
+        <div class="text-center">
+          <div
+            class="w-16 h-16 bg-success-green rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <i class="fas fa-check text-white text-2xl"></i>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-heading mb-2">
+            Konfirmasi Booking
+          </h3>
+          <p class="text-gray-secondary mb-6">
+            Apakah Anda yakin ingin mengkonfirmasi booking #BK-001?
+          </p>
+          <div class="flex space-x-3">
+            <button
+              onclick="closeConfirmationModal()"
+              class="flex-1 px-4 py-2 border border-gray-300 text-gray-primary rounded-lg hover:bg-gray-50 transition-colors duration-200"
+            >
+              Batal
+            </button>
+            <button
+              onclick="confirmBooking()"
+              class="flex-1 px-4 py-2 bg-success-green text-white rounded-lg hover:bg-green-600 transition-colors duration-200"
+            >
+              Konfirmasi
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Sidebar toggle functionality
+      const sidebarToggle = document.getElementById("sidebar-toggle");
+      const sidebarClose = document.getElementById("sidebar-close");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+      function showSidebar() {
+        sidebar.classList.remove("-translate-x-full");
+        sidebarOverlay.classList.remove("hidden");
+      }
+
+      function hideSidebar() {
+        sidebar.classList.add("-translate-x-full");
+        sidebarOverlay.classList.add("hidden");
+      }
+
+      sidebarToggle.addEventListener("click", showSidebar);
+      sidebarClose.addEventListener("click", hideSidebar);
+      sidebarOverlay.addEventListener("click", hideSidebar);
+
+      // Modal functions
+      function openConfirmationModal() {
+        document
+          .getElementById("confirmation-modal")
+          .classList.remove("hidden");
+      }
+
+      function closeConfirmationModal() {
+        document.getElementById("confirmation-modal").classList.add("hidden");
+      }
+
+      function confirmBooking() {
+        // Here you would typically send a request to your backend
+        alert("Booking berhasil dikonfirmasi!");
+        closeConfirmationModal();
+        // Update the page status or redirect
+        window.location.reload();
+      }
+
+      // Add event listeners to action buttons
+      document
+        .querySelector(".bg-success-green")
+        .addEventListener("click", openConfirmationModal);
+
+      // Quick action handlers
+      document
+        .querySelectorAll(".space-y-2 button, .space-y-3 button")
+        .forEach((button) => {
+          button.addEventListener("click", function () {
+            const action = this.textContent.trim();
+            console.log(`Action: ${action}`);
+
+            // Handle different actions
+            if (action.includes("Tolak")) {
+              if (confirm("Apakah Anda yakin ingin menolak booking ini?")) {
+                alert("Booking ditolak!");
+              }
+            } else if (action.includes("Reschedule")) {
+              alert("Fitur reschedule akan segera tersedia");
+            } else if (action.includes("Email")) {
+              alert("Mengirim email ke pelanggan...");
+            } else if (action.includes("WhatsApp")) {
+              alert("Membuka WhatsApp...");
+            } else if (action.includes("SMS")) {
+              alert("Mengirim SMS...");
+            } else if (action.includes("Print")) {
+              window.print();
+            } else if (action.includes("PDF")) {
+              alert("Export PDF akan segera tersedia");
+            } else if (action.includes("Duplicate")) {
+              alert("Duplicate booking akan segera tersedia");
+            }
+          });
+        });
+    </script>
+    <script src="../navigation.js"></script>
+    <script src="../auth.js"></script>
+    
+    
+    <script>
+      // Check authentication on page load
+      document.addEventListener("DOMContentLoaded", function() {
+        if (!RouteProtection.requireAuth("../login.html")) {
+          return;
+        }
+        RouteProtection.requireRole("admin", "../index.html");
+      });
+    </script>
+  </body>
+</html>
