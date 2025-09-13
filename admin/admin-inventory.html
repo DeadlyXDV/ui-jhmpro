@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory - JHMPRO Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "primary-blue": "#1E3A8A",
+              "secondary-blue": "#3B82F6",
+              "light-blue": "#EFF6FF",
+              "success-green": "#10B981",
+              "warning-orange": "#F59E0B",
+              "danger-red": "#EF4444",
+              "gray-primary": "#374151",
+              "gray-secondary": "#6B7280",
+              "gray-heading": "#1F2937",
+              "gray-bg": "#F9FAFB",
+            },
+            fontFamily: {
+              inter: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-inter bg-gray-bg">
+    <!-- Sidebar Navigation -->
+    <div class="flex h-screen">
+      <aside
+        id="sidebar"
+        class="w-80 bg-gray-heading text-white transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out fixed lg:static inset-y-0 left-0 z-50"
+      >
+        <div
+          class="flex items-center justify-between h-16 px-6 border-b border-gray-600"
+        >
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-8 h-8 bg-secondary-blue rounded-lg flex items-center justify-center"
+            >
+              <span class="text-white font-bold text-sm">JH</span>
+            </div>
+            <span class="font-bold text-lg">JHMPRO Admin</span>
+          </div>
+          <button id="sidebar-close" class="lg:hidden text-white">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <nav class="mt-8">
+          <div class="space-y-2 px-6">
+            <a
+              href="admin-dashboard.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-tachometer-alt text-gray-400 text-lg"></i>
+              <span>Dashboard</span>
+            </a>
+            <a
+              href="admin-booking.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-calendar-alt text-gray-400 text-lg"></i>
+              <span>Manajemen Booking</span>
+            </a>
+            <a
+              href="admin-customers.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-users text-gray-400 text-lg"></i>
+              <span>Manajemen Pelanggan</span>
+            </a>
+            <a
+              href="admin-services.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-tools text-gray-400 text-lg"></i>
+              <span>Manajemen Layanan</span>
+            </a>
+            <a
+              href="admin-reports.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-chart-bar text-gray-400 text-lg"></i>
+              <span>Laporan</span>
+            </a>
+            <a
+              href="admin-inventory.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-box text-gray-400 text-lg"></i>
+              <span class="font-medium">Inventory</span>
+            </a>
+            <a
+              href="admin-staff.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-user-tie text-gray-400 text-lg"></i>
+              <span>Manajemen Staff</span>
+            </a>
+            <a
+              href="#"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-cog text-gray-400 text-lg"></i>
+              <span>Pengaturan</span>
+            </a>
+          </div>
+
+          <div class="mt-auto px-6 pb-6">
+            <a
+              href="#" onclick="logoutUser(); return false;"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200 text-danger-red"
+            >
+              <i class="fas fa-sign-out-alt text-lg"></i>
+              <span>Keluar</span>
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200">
+          <div class="flex items-center justify-between px-6 py-4">
+            <div class="flex items-center space-x-4">
+              <button id="sidebar-toggle" class="lg:hidden text-gray-500">
+                <i class="fas fa-bars text-xl"></i>
+              </button>
+              <div>
+                <h1 class="text-2xl font-semibold text-gray-heading">
+                  Inventory Management
+                </h1>
+                <p class="text-sm text-gray-secondary mt-1">
+                  Kelola stok spare parts dan supplies bengkel
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-4">
+              <button
+                class="bg-primary-blue text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition-colors duration-200"
+                onclick="openAddItemModal()"
+              >
+                <i class="fas fa-plus mr-2"></i>
+                Tambah Item
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Content -->
+        <div class="p-6 space-y-6 overflow-y-auto h-full">
+          <!-- Quick Actions -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <button
+              class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 text-left"
+            >
+              <div class="flex items-center space-x-3">
+                <div
+                  class="w-10 h-10 bg-danger-red bg-opacity-10 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-exclamation-triangle text-danger-red"></i>
+                </div>
+                <div>
+                  <p class="font-semibold text-gray-heading">Stok Menipis</p>
+                  <p class="text-sm text-gray-secondary">12 items</p>
+                </div>
+              </div>
+            </button>
+
+            <button
+              class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 text-left"
+            >
+              <div class="flex items-center space-x-3">
+                <div
+                  class="w-10 h-10 bg-warning-orange bg-opacity-10 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-clock text-warning-orange"></i>
+                </div>
+                <div>
+                  <p class="font-semibold text-gray-heading">Hampir Expired</p>
+                  <p class="text-sm text-gray-secondary">5 items</p>
+                </div>
+              </div>
+            </button>
+
+            <button
+              class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 text-left"
+            >
+              <div class="flex items-center space-x-3">
+                <div
+                  class="w-10 h-10 bg-secondary-blue bg-opacity-10 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-truck text-secondary-blue"></i>
+                </div>
+                <div>
+                  <p class="font-semibold text-gray-heading">Incoming Stock</p>
+                  <p class="text-sm text-gray-secondary">8 items</p>
+                </div>
+              </div>
+            </button>
+
+            <button
+              class="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 text-left"
+            >
+              <div class="flex items-center space-x-3">
+                <div
+                  class="w-10 h-10 bg-success-green bg-opacity-10 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-clipboard-list text-success-green"></i>
+                </div>
+                <div>
+                  <p class="font-semibold text-gray-heading">Stock Opname</p>
+                  <p class="text-sm text-gray-secondary">Jadwalkan</p>
+                </div>
+              </div>
+            </button>
+          </div>
+
+          <!-- Filter and Search -->
+          <div class="bg-white rounded-xl shadow-sm p-6">
+            <div
+              class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
+            >
+              <div class="flex flex-col sm:flex-row gap-4 flex-1">
+                <div class="relative">
+                  <i
+                    class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                  ></i>
+                  <input
+                    type="text"
+                    placeholder="Cari item inventory..."
+                    class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue w-full"
+                    id="searchInventory"
+                  />
+                </div>
+                <select
+                  class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                >
+                  <option value="">Semua Kategori</option>
+                  <option value="oli">Oli & Pelumas</option>
+                  <option value="parts">Spare Parts</option>
+                  <option value="filter">Filter</option>
+                  <option value="tools">Tools</option>
+                  <option value="chemical">Chemical</option>
+                </select>
+                <select
+                  class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                >
+                  <option value="">Semua Status</option>
+                  <option value="available">Tersedia</option>
+                  <option value="low">Stok Menipis</option>
+                  <option value="out">Habis</option>
+                </select>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  <i class="fas fa-download mr-2"></i>
+                  Export
+                </button>
+                <button
+                  class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  <i class="fas fa-upload mr-2"></i>
+                  Import
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inventory Stats -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary">Total Items</p>
+                  <p class="text-2xl font-semibold text-gray-heading mt-1">
+                    847
+                  </p>
+                </div>
+                <div
+                  class="w-12 h-12 bg-secondary-blue bg-opacity-10 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-boxes text-secondary-blue text-xl"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex items-center text-sm">
+                <span class="text-success-green">+23</span>
+                <span class="text-gray-secondary ml-2">item baru</span>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary">Nilai Inventory</p>
+                  <p class="text-2xl font-semibold text-gray-heading mt-1">
+                    Rp 425M
+                  </p>
+                </div>
+                <div
+                  class="w-12 h-12 bg-success-green bg-opacity-10 rounded-lg flex items-center justify-center"
+                >
+                  <i
+                    class="fas fa-money-bill-wave text-success-green text-xl"
+                  ></i>
+                </div>
+              </div>
+              <div class="mt-4 flex items-center text-sm">
+                <span class="text-success-green">+8.5%</span>
+                <span class="text-gray-secondary ml-2">dari bulan lalu</span>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary">Items Terjual</p>
+                  <p class="text-2xl font-semibold text-gray-heading mt-1">
+                    1,247
+                  </p>
+                </div>
+                <div
+                  class="w-12 h-12 bg-warning-orange bg-opacity-10 rounded-lg flex items-center justify-center"
+                >
+                  <i
+                    class="fas fa-shopping-cart text-warning-orange text-xl"
+                  ></i>
+                </div>
+              </div>
+              <div class="mt-4 flex items-center text-sm">
+                <span class="text-success-green">+12%</span>
+                <span class="text-gray-secondary ml-2">vs bulan lalu</span>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary">Turnover Rate</p>
+                  <p class="text-2xl font-semibold text-gray-heading mt-1">
+                    2.8x
+                  </p>
+                </div>
+                <div
+                  class="w-12 h-12 bg-primary-blue bg-opacity-10 rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-chart-line text-primary-blue text-xl"></i>
+                </div>
+              </div>
+              <div class="mt-4 flex items-center text-sm">
+                <span class="text-success-green">Optimal</span>
+                <span class="text-gray-secondary ml-2">performa baik</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inventory Table -->
+          <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <div class="p-6 border-b border-gray-200">
+              <h3 class="text-lg font-semibold text-gray-heading">
+                Daftar Inventory
+              </h3>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-gray-bg">
+                  <tr>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      <input type="checkbox" class="rounded border-gray-300" />
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Item
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Kategori
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Stock
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Min. Stock
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Harga Beli
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Harga Jual
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Status
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Aksi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200" id="inventoryTableBody">
+                  <!-- Inventory rows will be populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+            <div
+              class="px-6 py-4 border-t border-gray-200 flex items-center justify-between"
+            >
+              <p class="text-sm text-gray-secondary">
+                Menampilkan 1-10 dari 847 items
+              </p>
+              <div class="flex items-center space-x-2">
+                <button
+                  class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="px-3 py-2 bg-primary-blue text-white rounded-lg">
+                  1
+                </button>
+                <button
+                  class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  2
+                </button>
+                <button
+                  class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  3
+                </button>
+                <button
+                  class="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Add Item Modal -->
+    <div
+      id="addItemModal"
+      class="fixed inset-0 bg-black bg-opacity-50 hidden z-50"
+    >
+      <div class="flex items-center justify-center min-h-screen p-4">
+        <div
+          class="bg-white rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+        >
+          <div class="p-6 border-b border-gray-200">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-semibold text-gray-heading">
+                Tambah Item Baru
+              </h3>
+              <button
+                onclick="closeAddItemModal()"
+                class="text-gray-400 hover:text-gray-600"
+              >
+                <i class="fas fa-times text-xl"></i>
+              </button>
+            </div>
+          </div>
+          <form class="p-6 space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Nama Item</label
+                >
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                  placeholder="Contoh: Oli Mesin Shell Helix"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Kode Item</label
+                >
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                  placeholder="Contoh: OLI-001"
+                />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Kategori</label
+                >
+                <select
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                >
+                  <option value="oli">Oli & Pelumas</option>
+                  <option value="parts">Spare Parts</option>
+                  <option value="filter">Filter</option>
+                  <option value="tools">Tools</option>
+                  <option value="chemical">Chemical</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Merk</label
+                >
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                  placeholder="Contoh: Shell"
+                />
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2"
+                >Deskripsi</label
+              >
+              <textarea
+                rows="3"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                placeholder="Deskripsi detail item..."
+              ></textarea>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Stock Awal</label
+                >
+                <input
+                  type="number"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                  placeholder="0"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Minimum Stock</label
+                >
+                <input
+                  type="number"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                  placeholder="0"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Unit</label
+                >
+                <select
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                >
+                  <option>Pcs</option>
+                  <option>Liter</option>
+                  <option>Kg</option>
+                  <option>Set</option>
+                  <option>Roll</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Harga Beli (Rp)</label
+                >
+                <input
+                  type="number"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                  placeholder="0"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Harga Jual (Rp)</label
+                >
+                <input
+                  type="number"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                  placeholder="0"
+                />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Supplier</label
+                >
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                  placeholder="Nama supplier"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2"
+                  >Lokasi Penyimpanan</label
+                >
+                <input
+                  type="text"
+                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-primary-blue"
+                  placeholder="Contoh: Rak A1"
+                />
+              </div>
+            </div>
+            <div
+              class="flex justify-end space-x-4 pt-6 border-t border-gray-200"
+            >
+              <button
+                type="button"
+                onclick="closeAddItemModal()"
+                class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+              >
+                Batal
+              </button>
+              <button
+                type="submit"
+                class="px-6 py-2 bg-primary-blue text-white rounded-lg hover:bg-blue-900 transition-colors duration-200"
+              >
+                Simpan Item
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div
+      id="sidebar-overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"
+    ></div>
+
+    <script>
+      // Sample inventory data
+      const inventory = [
+        {
+          id: 1,
+          name: "Oli Mesin Shell Helix 5W-30",
+          code: "OLI-001",
+          category: "oli",
+          stock: 25,
+          minStock: 10,
+          buyPrice: 85000,
+          sellPrice: 120000,
+          status: "available",
+          unit: "Liter",
+        },
+        {
+          id: 2,
+          name: "Filter Oli Toyota Avanza",
+          code: "FLT-002",
+          category: "filter",
+          stock: 8,
+          minStock: 15,
+          buyPrice: 25000,
+          sellPrice: 45000,
+          status: "low",
+          unit: "Pcs",
+        },
+        {
+          id: 3,
+          name: "Brake Pad Honda Brio",
+          code: "BRK-003",
+          category: "parts",
+          stock: 0,
+          minStock: 5,
+          buyPrice: 180000,
+          sellPrice: 250000,
+          status: "out",
+          unit: "Set",
+        },
+        {
+          id: 4,
+          name: "Coolant Radiator",
+          code: "COL-004",
+          category: "chemical",
+          stock: 45,
+          minStock: 20,
+          buyPrice: 35000,
+          sellPrice: 55000,
+          status: "available",
+          unit: "Liter",
+        },
+        {
+          id: 5,
+          name: "Spark Plug NGK",
+          code: "SPK-005",
+          category: "parts",
+          stock: 32,
+          minStock: 12,
+          buyPrice: 45000,
+          sellPrice: 65000,
+          status: "available",
+          unit: "Pcs",
+        },
+        {
+          id: 6,
+          name: "Air Filter Honda Jazz",
+          code: "AIR-006",
+          category: "filter",
+          stock: 7,
+          minStock: 10,
+          buyPrice: 55000,
+          sellPrice: 85000,
+          status: "low",
+          unit: "Pcs",
+        },
+      ];
+
+      function renderInventory() {
+        const tbody = document.getElementById("inventoryTableBody");
+        tbody.innerHTML = inventory
+          .map(
+            (item) => `
+          <tr class="hover:bg-gray-50">
+            <td class="py-4 px-6">
+              <input type="checkbox" class="rounded border-gray-300">
+            </td>
+            <td class="py-4 px-6">
+              <div>
+                <div class="font-medium text-gray-heading">${item.name}</div>
+                <div class="text-sm text-gray-secondary">${item.code}</div>
+              </div>
+            </td>
+            <td class="py-4 px-6">
+              <span class="px-2 py-1 text-xs font-medium rounded-full ${getCategoryColor(
+                item.category
+              )}">
+                ${getCategoryName(item.category)}
+              </span>
+            </td>
+            <td class="py-4 px-6">
+              <div class="text-sm text-gray-heading">${item.stock} ${
+              item.unit
+            }</div>
+            </td>
+            <td class="py-4 px-6">
+              <div class="text-sm text-gray-heading">${item.minStock} ${
+              item.unit
+            }</div>
+            </td>
+            <td class="py-4 px-6">
+              <div class="text-sm text-gray-heading">Rp ${item.buyPrice.toLocaleString(
+                "id-ID"
+              )}</div>
+            </td>
+            <td class="py-4 px-6">
+              <div class="text-sm text-gray-heading">Rp ${item.sellPrice.toLocaleString(
+                "id-ID"
+              )}</div>
+            </td>
+            <td class="py-4 px-6">
+              <span class="px-2 py-1 text-xs font-medium rounded-full ${getStatusColor(
+                item.status
+              )}">
+                ${getStatusName(item.status)}
+              </span>
+            </td>
+            <td class="py-4 px-6">
+              <div class="flex items-center space-x-2">
+                <button class="text-secondary-blue hover:text-primary-blue" title="Lihat Detail">
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button class="text-warning-orange hover:text-orange-600" title="Edit">
+                  <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-success-green hover:text-green-600" title="Restock">
+                  <i class="fas fa-plus"></i>
+                </button>
+                <button class="text-danger-red hover:text-red-600" title="Hapus">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `
+          )
+          .join("");
+      }
+
+      function getCategoryName(category) {
+        const names = {
+          oli: "Oli & Pelumas",
+          parts: "Spare Parts",
+          filter: "Filter",
+          tools: "Tools",
+          chemical: "Chemical",
+        };
+        return names[category] || category;
+      }
+
+      function getCategoryColor(category) {
+        const colors = {
+          oli: "bg-primary-blue bg-opacity-10 text-primary-blue",
+          parts: "bg-success-green bg-opacity-10 text-success-green",
+          filter: "bg-warning-orange bg-opacity-10 text-warning-orange",
+          tools: "bg-secondary-blue bg-opacity-10 text-secondary-blue",
+          chemical: "bg-purple-100 text-purple-600",
+        };
+        return colors[category] || "bg-gray-200 text-gray-600";
+      }
+
+      function getStatusName(status) {
+        const names = {
+          available: "Tersedia",
+          low: "Stok Menipis",
+          out: "Habis",
+        };
+        return names[status] || status;
+      }
+
+      function getStatusColor(status) {
+        const colors = {
+          available: "bg-success-green bg-opacity-10 text-success-green",
+          low: "bg-warning-orange bg-opacity-10 text-warning-orange",
+          out: "bg-danger-red bg-opacity-10 text-danger-red",
+        };
+        return colors[status] || "bg-gray-200 text-gray-600";
+      }
+
+      function openAddItemModal() {
+        document.getElementById("addItemModal").classList.remove("hidden");
+      }
+
+      function closeAddItemModal() {
+        document.getElementById("addItemModal").classList.add("hidden");
+      }
+
+      // Search functionality
+      document
+        .getElementById("searchInventory")
+        .addEventListener("input", function (e) {
+          const searchTerm = e.target.value.toLowerCase();
+          const rows = document.querySelectorAll("#inventoryTableBody tr");
+
+          rows.forEach((row) => {
+            const name = row
+              .querySelector("td:nth-child(2)")
+              .textContent.toLowerCase();
+
+            if (name.includes(searchTerm)) {
+              row.style.display = "";
+            } else {
+              row.style.display = "none";
+            }
+          });
+        });
+
+      // Initialize
+      document.addEventListener("DOMContentLoaded", function () {
+        renderInventory();
+      });
+
+      // Sidebar toggle functionality
+      const sidebarToggle = document.getElementById("sidebar-toggle");
+      const sidebarClose = document.getElementById("sidebar-close");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+      function showSidebar() {
+        if (sidebar) sidebar.classList.remove("-translate-x-full");
+        if (sidebarOverlay) sidebarOverlay.classList.remove("hidden");
+      }
+
+      function hideSidebar() {
+        if (sidebar) sidebar.classList.add("-translate-x-full");
+        if (sidebarOverlay) sidebarOverlay.classList.add("hidden");
+      }
+
+      if (sidebarToggle) sidebarToggle.addEventListener("click", showSidebar);
+      if (sidebarClose) sidebarClose.addEventListener("click", hideSidebar);
+      if (sidebarOverlay) sidebarOverlay.addEventListener("click", hideSidebar);
+
+      // Close sidebar when clicking on nav links (mobile)
+      document.querySelectorAll("#sidebar nav a").forEach((link) => {
+        link.addEventListener("click", () => {
+          if (window.innerWidth < 1024) {
+            hideSidebar();
+          }
+        });
+      });
+    </script>
+    <script src="../navigation.js"></script>
+    <script src="../auth.js"></script>
+    
+    
+    <script>
+      // Check authentication on page load
+      document.addEventListener("DOMContentLoaded", function() {
+        if (!RouteProtection.requireAuth("../login.html")) {
+          return;
+        }
+        RouteProtection.requireRole("admin", "../index.html");
+      });
+    </script>
+  </body>
+</html>

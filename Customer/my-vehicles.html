@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kendaraan Saya - JHMPRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "primary-blue": "#1E3A8A",
+              "secondary-blue": "#3B82F6",
+              "light-blue": "#EFF6FF",
+              "success-green": "#10B981",
+              "warning-orange": "#F59E0B",
+              "danger-red": "#EF4444",
+              "gray-primary": "#374151",
+              "gray-secondary": "#6B7280",
+              "gray-heading": "#1F2937",
+              "gray-bg": "#F9FAFB",
+            },
+            fontFamily: {
+              inter: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-inter bg-gray-bg">
+    <!-- Sidebar Navigation -->
+    <div class="flex h-screen">
+      <aside
+        id="sidebar"
+        class="w-80 bg-gray-heading text-white transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out fixed lg:static inset-y-0 left-0 z-50"
+      >
+        <div
+          class="flex items-center justify-between h-16 px-6 border-b border-gray-600"
+        >
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-8 h-8 bg-secondary-blue rounded-lg flex items-center justify-center"
+            >
+              <span class="text-white font-bold text-sm">JH</span>
+            </div>
+            <span class="font-bold text-lg">JHMPRO</span>
+          </div>
+          <button id="sidebar-close" class="lg:hidden text-white">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <nav class="mt-6 pb-6">
+          <div class="space-y-1 px-6">
+            <a
+              href="dashboard-customer.html"
+              class="flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-tachometer-alt text-gray-400 text-lg w-5"></i>
+              <span class="text-sm font-medium">Dashboard</span>
+            </a>
+            <a
+              href="booking-service.html"
+              class="flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-calendar-plus text-gray-400 text-lg w-5"></i>
+              <span class="text-sm font-medium">Booking Servis</span>
+            </a>
+            <div
+              class="flex items-center space-x-3 px-3 py-3 rounded-lg bg-gray-primary border-l-4 border-secondary-blue"
+            >
+              <i class="fas fa-motorcycle text-secondary-blue text-lg w-5"></i>
+              <span class="text-sm font-semibold">Kendaraan Saya</span>
+            </div>
+            <a
+              href="service-history.html"
+              class="flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-history text-gray-400 text-lg w-5"></i>
+              <span class="text-sm font-medium">Riwayat Servis</span>
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Navigation -->
+        <header class="bg-white border-b border-gray-200 h-16">
+          <div class="flex items-center justify-between h-full px-6">
+            <div class="flex items-center space-x-4">
+              <button id="sidebar-toggle" class="lg:hidden text-gray-500">
+                <i class="fas fa-bars text-xl"></i>
+              </button>
+              <nav class="hidden sm:flex items-center space-x-2 text-sm">
+                <a href="dashboard-customer.html" class="text-gray-secondary"
+                  >Dashboard</a
+                >
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                <span class="text-secondary-blue">Kendaraan Saya</span>
+              </nav>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <button
+                class="relative p-2 text-gray-500 hover:text-gray-primary"
+              >
+                <i class="fas fa-bell text-lg"></i>
+                <span
+                  class="absolute -top-1 -right-1 w-3 h-3 bg-danger-red rounded-full"
+                ></span>
+              </button>
+              <div class="relative">
+                <button
+                  id="profile-dropdown"
+                  class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <img
+                    src="https://via.placeholder.com/32x32"
+                    alt="User"
+                    class="w-8 h-8 rounded-full"
+                  />
+                  <span class="text-sm font-medium text-gray-primary"
+                    >John Doe</span
+                  >
+                  <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                </button>
+
+                <!-- Dropdown Menu -->
+                <div
+                  id="profile-menu"
+                  class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50"
+                >
+                  <div class="py-2">
+                    <a
+                      href="#"
+                      class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                    >
+                      <i class="fas fa-user text-gray-400 mr-3"></i>
+                      Profil
+                    </a>
+                    <a
+                      href="#"
+                      class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                    >
+                      <i class="fas fa-cog text-gray-400 mr-3"></i>
+                      Pengaturan
+                    </a>
+                    <hr class="my-2 border-gray-200" />
+                    <a
+                      href="#"
+                      onclick="logoutUser(); return false;"
+                      class="flex items-center px-4 py-2 text-sm text-danger-red hover:bg-red-50 transition-colors duration-200"
+                    >
+                      <i class="fas fa-sign-out-alt text-danger-red mr-3"></i>
+                      Keluar
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto p-6">
+          <!-- Page Header -->
+          <div
+            class="flex flex-col lg:flex-row lg:items-center justify-between mb-8 gap-4"
+          >
+            <div>
+              <h1 class="text-2xl font-semibold text-gray-heading mb-2">
+                Kendaraan Saya
+              </h1>
+              <p class="text-gray-secondary">
+                Kelola semua kendaraan yang terdaftar di akun Anda
+              </p>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <!-- Search Bar -->
+              <div class="relative">
+                <input
+                  type="text"
+                  id="vehicle-search"
+                  placeholder="Cari kendaraan..."
+                  class="w-full sm:w-64 h-12 pl-10 pr-4 border-2 border-gray-200 rounded-xl focus:border-secondary-blue focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-gray-400"
+                />
+                <i
+                  class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                ></i>
+              </div>
+
+              <button
+                id="add-vehicle-btn"
+                class="px-6 py-3 bg-primary-blue text-white rounded-xl hover:bg-blue-900 transition-colors duration-200 flex items-center justify-center space-x-2 whitespace-nowrap"
+              >
+                <i class="fas fa-plus"></i>
+                <span>Tambah Kendaraan</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Vehicle Stats -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary mb-1">
+                    Total Kendaraan
+                  </p>
+                  <p
+                    class="text-2xl font-bold text-gray-heading"
+                    id="total-vehicles"
+                  >
+                    3
+                  </p>
+                </div>
+                <div
+                  class="w-12 h-12 bg-secondary-blue rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-motorcycle text-white text-xl"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary mb-1">Perlu Servis</p>
+                  <p
+                    class="text-2xl font-bold text-warning-orange"
+                    id="needs-service"
+                  >
+                    1
+                  </p>
+                </div>
+                <div
+                  class="w-12 h-12 bg-warning-orange rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-exclamation-triangle text-white text-xl"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary mb-1">Servis Terbaru</p>
+                  <p class="text-sm font-medium text-gray-heading">
+                    15 Des 2024
+                  </p>
+                </div>
+                <div
+                  class="w-12 h-12 bg-success-green rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-wrench text-white text-xl"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vehicle Cards -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            id="vehicles-container"
+          >
+            <!-- Vehicle Card 1 -->
+            <div
+              class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
+            >
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex items-center space-x-3">
+                    <div
+                      class="w-12 h-12 bg-secondary-blue rounded-lg flex items-center justify-center"
+                    >
+                      <i class="fas fa-motorcycle text-white text-xl"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold text-gray-heading">
+                        Honda Vario 150
+                      </h3>
+                      <p class="text-sm text-gray-secondary">
+                        2022 • B 1234 XYZ
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-1">
+                    <button
+                      class="p-2 text-gray-400 hover:text-secondary-blue transition-colors duration-200"
+                    >
+                      <i class="fas fa-edit text-sm"></i>
+                    </button>
+                    <button
+                      class="p-2 text-gray-400 hover:text-danger-red transition-colors duration-200"
+                    >
+                      <i class="fas fa-trash text-sm"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="space-y-3 mb-4">
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-secondary">Kilometer:</span>
+                    <span class="text-gray-primary font-medium">45.000 km</span>
+                  </div>
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-secondary">Servis Terakhir:</span>
+                    <span class="text-gray-primary font-medium"
+                      >15 Des 2024</span
+                    >
+                  </div>
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-secondary">Status:</span>
+                    <span
+                      class="px-2 py-1 text-xs font-medium bg-success-green text-white rounded-full"
+                    >
+                      Baik
+                    </span>
+                  </div>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                  <button
+                    class="flex-1 px-4 py-2 bg-primary-blue text-white rounded-lg hover:bg-blue-900 transition-colors duration-200 text-sm"
+                  >
+                    <i class="fas fa-calendar-plus mr-2"></i>
+                    Booking Servis
+                  </button>
+                  <button
+                    class="px-4 py-2 border border-gray-300 text-gray-primary rounded-lg hover:bg-gray-50 transition-colors duration-200 text-sm"
+                  >
+                    <i class="fas fa-history"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Vehicle Card 2 -->
+            <div
+              class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
+            >
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex items-center space-x-3">
+                    <div
+                      class="w-12 h-12 bg-warning-orange rounded-lg flex items-center justify-center"
+                    >
+                      <i class="fas fa-motorcycle text-white text-xl"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold text-gray-heading">
+                        Yamaha PCX 160
+                      </h3>
+                      <p class="text-sm text-gray-secondary">
+                        2021 • B 5678 ABC
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-1">
+                    <button
+                      class="p-2 text-gray-400 hover:text-secondary-blue transition-colors duration-200"
+                    >
+                      <i class="fas fa-edit text-sm"></i>
+                    </button>
+                    <button
+                      class="p-2 text-gray-400 hover:text-danger-red transition-colors duration-200"
+                    >
+                      <i class="fas fa-trash text-sm"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="space-y-3 mb-4">
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-secondary">Kilometer:</span>
+                    <span class="text-gray-primary font-medium">28.500 km</span>
+                  </div>
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-secondary">Servis Terakhir:</span>
+                    <span class="text-gray-primary font-medium"
+                      >25 Nov 2024</span
+                    >
+                  </div>
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-secondary">Status:</span>
+                    <span
+                      class="px-2 py-1 text-xs font-medium bg-warning-orange text-white rounded-full"
+                    >
+                      Perlu Servis
+                    </span>
+                  </div>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                  <button
+                    class="flex-1 px-4 py-2 bg-warning-orange text-white rounded-lg hover:bg-orange-600 transition-colors duration-200 text-sm"
+                  >
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    Booking Sekarang
+                  </button>
+                  <button
+                    class="px-4 py-2 border border-gray-300 text-gray-primary rounded-lg hover:bg-gray-50 transition-colors duration-200 text-sm"
+                  >
+                    <i class="fas fa-history"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Vehicle Card 3 -->
+            <div
+              class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden"
+            >
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex items-center space-x-3">
+                    <div
+                      class="w-12 h-12 bg-success-green rounded-lg flex items-center justify-center"
+                    >
+                      <i class="fas fa-motorcycle text-white text-xl"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold text-gray-heading">
+                        Yamaha NMAX
+                      </h3>
+                      <p class="text-sm text-gray-secondary">
+                        2023 • B 9012 DEF
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-1">
+                    <button
+                      class="p-2 text-gray-400 hover:text-secondary-blue transition-colors duration-200"
+                    >
+                      <i class="fas fa-edit text-sm"></i>
+                    </button>
+                    <button
+                      class="p-2 text-gray-400 hover:text-danger-red transition-colors duration-200"
+                    >
+                      <i class="fas fa-trash text-sm"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="space-y-3 mb-4">
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-secondary">Kilometer:</span>
+                    <span class="text-gray-primary font-medium">12.800 km</span>
+                  </div>
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-secondary">Servis Terakhir:</span>
+                    <span class="text-gray-primary font-medium"
+                      >08 Des 2024</span
+                    >
+                  </div>
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-secondary">Status:</span>
+                    <span
+                      class="px-2 py-1 text-xs font-medium bg-success-green text-white rounded-full"
+                    >
+                      Baru Servis
+                    </span>
+                  </div>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                  <button
+                    class="flex-1 px-4 py-2 bg-primary-blue text-white rounded-lg hover:bg-blue-900 transition-colors duration-200 text-sm"
+                  >
+                    <i class="fas fa-calendar-plus mr-2"></i>
+                    Booking Servis
+                  </button>
+                  <button
+                    class="px-4 py-2 border border-gray-300 text-gray-primary rounded-lg hover:bg-gray-50 transition-colors duration-200 text-sm"
+                  >
+                    <i class="fas fa-history"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Add Vehicle Modal -->
+    <div
+      id="add-vehicle-modal"
+      class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+      >
+        <div class="p-6 border-b border-gray-200">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold text-gray-heading">
+              Tambah Kendaraan Baru
+            </h2>
+            <button
+              id="close-modal"
+              class="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200"
+            >
+              <i class="fas fa-times text-lg"></i>
+            </button>
+          </div>
+        </div>
+
+        <form id="vehicle-form" class="p-6 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Vehicle Type -->
+            <div>
+              <label class="block text-sm font-medium text-gray-primary mb-2">
+                Jenis Kendaraan *
+              </label>
+              <select
+                id="vehicle-type"
+                required
+                class="w-full h-12 px-4 border-2 border-gray-200 rounded-lg focus:border-secondary-blue focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+              >
+                <option value="">Pilih jenis kendaraan</option>
+                <option value="matic">Motor Matic</option>
+                <option value="sport">Motor Sport</option>
+                <option value="bebek">Motor Bebek</option>
+                <option value="trail">Motor Trail</option>
+                <option value="mobil">Mobil</option>
+              </select>
+            </div>
+
+            <!-- Brand -->
+            <div>
+              <label class="block text-sm font-medium text-gray-primary mb-2">
+                Merk *
+              </label>
+              <select
+                id="vehicle-brand"
+                required
+                class="w-full h-12 px-4 border-2 border-gray-200 rounded-lg focus:border-secondary-blue focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+              >
+                <option value="">Pilih merk</option>
+                <option value="honda">Honda</option>
+                <option value="yamaha">Yamaha</option>
+                <option value="suzuki">Suzuki</option>
+                <option value="kawasaki">Kawasaki</option>
+                <option value="tvs">TVS</option>
+                <option value="benelli">Benelli</option>
+              </select>
+            </div>
+
+            <!-- Model -->
+            <div>
+              <label class="block text-sm font-medium text-gray-primary mb-2">
+                Model *
+              </label>
+              <input
+                type="text"
+                id="vehicle-model"
+                required
+                placeholder="Contoh: Vario 150, PCX 160, NMAX"
+                class="w-full h-12 px-4 border-2 border-gray-200 rounded-lg focus:border-secondary-blue focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-gray-400"
+              />
+            </div>
+
+            <!-- Year -->
+            <div>
+              <label class="block text-sm font-medium text-gray-primary mb-2">
+                Tahun *
+              </label>
+              <select
+                id="vehicle-year"
+                required
+                class="w-full h-12 px-4 border-2 border-gray-200 rounded-lg focus:border-secondary-blue focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+              >
+                <option value="">Pilih tahun</option>
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+                <option value="2020">2020</option>
+                <option value="2019">2019</option>
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+              </select>
+            </div>
+
+            <!-- License Plate -->
+            <div>
+              <label class="block text-sm font-medium text-gray-primary mb-2">
+                Nomor Polisi *
+              </label>
+              <input
+                type="text"
+                id="license-plate"
+                required
+                placeholder="Contoh: B 1234 XYZ"
+                class="w-full h-12 px-4 border-2 border-gray-200 rounded-lg focus:border-secondary-blue focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-gray-400"
+              />
+            </div>
+
+            <!-- Color -->
+            <div>
+              <label class="block text-sm font-medium text-gray-primary mb-2">
+                Warna
+              </label>
+              <input
+                type="text"
+                id="vehicle-color"
+                placeholder="Contoh: Merah, Hitam, Putih"
+                class="w-full h-12 px-4 border-2 border-gray-200 rounded-lg focus:border-secondary-blue focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-gray-400"
+              />
+            </div>
+
+            <!-- Current Odometer -->
+            <div>
+              <label class="block text-sm font-medium text-gray-primary mb-2">
+                Kilometer Saat Ini
+              </label>
+              <input
+                type="number"
+                id="odometer"
+                placeholder="Contoh: 25000"
+                class="w-full h-12 px-4 border-2 border-gray-200 rounded-lg focus:border-secondary-blue focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-gray-400"
+              />
+            </div>
+
+            <!-- Purchase Date -->
+            <div>
+              <label class="block text-sm font-medium text-gray-primary mb-2">
+                Tanggal Pembelian
+              </label>
+              <input
+                type="date"
+                id="purchase-date"
+                class="w-full h-12 px-4 border-2 border-gray-200 rounded-lg focus:border-secondary-blue focus:ring-2 focus:ring-blue-100 transition-all duration-200"
+              />
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div>
+            <label class="block text-sm font-medium text-gray-primary mb-2">
+              Catatan Tambahan
+            </label>
+            <textarea
+              id="vehicle-notes"
+              rows="3"
+              placeholder="Catatan khusus tentang kendaraan ini..."
+              class="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-secondary-blue focus:ring-2 focus:ring-blue-100 transition-all duration-200 placeholder-gray-400 resize-none"
+            ></textarea>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
+            <button
+              type="button"
+              id="cancel-btn"
+              class="px-6 py-3 border border-gray-300 text-gray-primary rounded-lg hover:bg-gray-50 transition-colors duration-200"
+            >
+              Batal
+            </button>
+            <button
+              type="submit"
+              class="px-6 py-3 bg-primary-blue text-white rounded-lg hover:bg-blue-900 transition-colors duration-200"
+            >
+              Simpan Kendaraan
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div
+      id="sidebar-overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"
+    ></div>
+
+    <script>
+      // Sample vehicles data
+      let vehicles = [
+        {
+          id: 1,
+          type: "matic",
+          brand: "Honda",
+          model: "Vario 150",
+          year: "2022",
+          licensePlate: "B 1234 XYZ",
+          color: "Merah",
+          odometer: 45000,
+          lastService: "2024-12-15",
+          status: "baik",
+          notes: "Kondisi baik, rutin servis",
+        },
+        {
+          id: 2,
+          type: "matic",
+          brand: "Yamaha",
+          model: "PCX 160",
+          year: "2021",
+          licensePlate: "B 5678 ABC",
+          color: "Putih",
+          odometer: 28500,
+          lastService: "2024-11-25",
+          status: "perlu_servis",
+          notes: "Perlu ganti oli dan tune up",
+        },
+        {
+          id: 3,
+          type: "matic",
+          brand: "Yamaha",
+          model: "NMAX",
+          year: "2023",
+          licensePlate: "B 9012 DEF",
+          color: "Hitam",
+          odometer: 12800,
+          lastService: "2024-12-08",
+          status: "baru_servis",
+          notes: "Baru servis kemarin",
+        },
+      ];
+
+      // Sidebar toggle functionality
+      const sidebarToggle = document.getElementById("sidebar-toggle");
+      const sidebarClose = document.getElementById("sidebar-close");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+      function showSidebar() {
+        sidebar.classList.remove("-translate-x-full");
+        sidebarOverlay.classList.remove("hidden");
+      }
+
+      function hideSidebar() {
+        sidebar.classList.add("-translate-x-full");
+        sidebarOverlay.classList.add("hidden");
+      }
+
+      sidebarToggle.addEventListener("click", showSidebar);
+      sidebarClose.addEventListener("click", hideSidebar);
+      sidebarOverlay.addEventListener("click", hideSidebar);
+
+      // Modal functionality
+      const addVehicleBtn = document.getElementById("add-vehicle-btn");
+      const addVehicleModal = document.getElementById("add-vehicle-modal");
+      const closeModal = document.getElementById("close-modal");
+      const cancelBtn = document.getElementById("cancel-btn");
+      const vehicleForm = document.getElementById("vehicle-form");
+
+      function showModal() {
+        addVehicleModal.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+      }
+
+      function hideModal() {
+        addVehicleModal.classList.add("hidden");
+        document.body.style.overflow = "auto";
+        vehicleForm.reset();
+      }
+
+      addVehicleBtn.addEventListener("click", showModal);
+      closeModal.addEventListener("click", hideModal);
+      cancelBtn.addEventListener("click", hideModal);
+
+      // Close modal when clicking outside
+      addVehicleModal.addEventListener("click", function (e) {
+        if (e.target === addVehicleModal) {
+          hideModal();
+        }
+      });
+
+      // Form submission
+      vehicleForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const formData = new FormData(vehicleForm);
+        const newVehicle = {
+          id: vehicles.length + 1,
+          type: document.getElementById("vehicle-type").value,
+          brand: document.getElementById("vehicle-brand").value,
+          model: document.getElementById("vehicle-model").value,
+          year: document.getElementById("vehicle-year").value,
+          licensePlate: document.getElementById("license-plate").value,
+          color:
+            document.getElementById("vehicle-color").value ||
+            "Tidak disebutkan",
+          odometer: parseInt(document.getElementById("odometer").value) || 0,
+          lastService: null,
+          status: "belum_servis",
+          notes: document.getElementById("vehicle-notes").value || "",
+        };
+
+        vehicles.push(newVehicle);
+        renderVehicles();
+        updateStats();
+        hideModal();
+
+        // Show success message
+        alert("Kendaraan berhasil ditambahkan!");
+      });
+
+      // Format license plate input
+      document
+        .getElementById("license-plate")
+        .addEventListener("input", function (e) {
+          let value = e.target.value.toUpperCase();
+          value = value.replace(/[^A-Z0-9\s]/g, "");
+          e.target.value = value;
+        });
+
+      function renderVehicles(filteredVehicles = vehicles) {
+        const container = document.getElementById("vehicles-container");
+        container.innerHTML = "";
+
+        if (filteredVehicles.length === 0) {
+          container.innerHTML = `
+            <div class="col-span-full text-center py-12">
+              <div class="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-search text-gray-400 text-2xl"></i>
+              </div>
+              <h3 class="text-lg font-semibold text-gray-heading mb-2">Tidak ada kendaraan ditemukan</h3>
+              <p class="text-gray-secondary">Coba ubah kata kunci pencarian atau tambah kendaraan baru.</p>
+            </div>
+          `;
+          return;
+        }
+
+        filteredVehicles.forEach((vehicle) => {
+          const statusClass = {
+            baik: "bg-success-green",
+            perlu_servis: "bg-warning-orange",
+            baru_servis: "bg-success-green",
+            belum_servis: "bg-gray-400",
+          };
+
+          const statusText = {
+            baik: "Baik",
+            perlu_servis: "Perlu Servis",
+            baru_servis: "Baru Servis",
+            belum_servis: "Belum Servis",
+          };
+
+          const buttonClass =
+            vehicle.status === "perlu_servis"
+              ? "bg-warning-orange hover:bg-orange-600"
+              : "bg-primary-blue hover:bg-blue-900";
+          const buttonText =
+            vehicle.status === "perlu_servis"
+              ? "Booking Sekarang"
+              : "Booking Servis";
+          const buttonIcon =
+            vehicle.status === "perlu_servis"
+              ? "fas fa-exclamation-triangle"
+              : "fas fa-calendar-plus";
+
+          const vehicleCard = `
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 ${
+                      statusClass[vehicle.status]
+                    } rounded-lg flex items-center justify-center">
+                      <i class="fas fa-motorcycle text-white text-xl"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold text-gray-heading">${
+                        vehicle.brand
+                      } ${vehicle.model}</h3>
+                      <p class="text-sm text-gray-secondary">${
+                        vehicle.year
+                      } • ${vehicle.licensePlate}</p>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-1">
+                    <button class="p-2 text-gray-400 hover:text-secondary-blue transition-colors duration-200" onclick="editVehicle(${
+                      vehicle.id
+                    })">
+                      <i class="fas fa-edit text-sm"></i>
+                    </button>
+                    <button class="p-2 text-gray-400 hover:text-danger-red transition-colors duration-200" onclick="deleteVehicle(${
+                      vehicle.id
+                    })">
+                      <i class="fas fa-trash text-sm"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="space-y-3 mb-4">
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-secondary">Kilometer:</span>
+                    <span class="text-gray-primary font-medium">${vehicle.odometer.toLocaleString()} km</span>
+                  </div>
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-secondary">Servis Terakhir:</span>
+                    <span class="text-gray-primary font-medium">${
+                      vehicle.lastService
+                        ? new Date(vehicle.lastService).toLocaleDateString(
+                            "id-ID"
+                          )
+                        : "Belum pernah"
+                    }</span>
+                  </div>
+                  <div class="flex justify-between text-sm">
+                    <span class="text-gray-secondary">Status:</span>
+                    <span class="px-2 py-1 text-xs font-medium ${
+                      statusClass[vehicle.status]
+                    } text-white rounded-full">
+                      ${statusText[vehicle.status]}
+                    </span>
+                  </div>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                  <button class="flex-1 px-4 py-2 ${buttonClass} text-white rounded-lg transition-colors duration-200 text-sm" onclick="bookService('${
+            vehicle.licensePlate
+          }')">
+                    <i class="${buttonIcon} mr-2"></i>
+                    ${buttonText}
+                  </button>
+                  <button class="px-4 py-2 border border-gray-300 text-gray-primary rounded-lg hover:bg-gray-50 transition-colors duration-200 text-sm" onclick="viewHistory('${
+                    vehicle.licensePlate
+                  }')">
+                    <i class="fas fa-history"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+
+          container.innerHTML += vehicleCard;
+        });
+      }
+
+      // Search functionality
+      function searchVehicles(query) {
+        if (!query.trim()) {
+          renderVehicles();
+          return;
+        }
+
+        const filtered = vehicles.filter((vehicle) => {
+          const searchText = query.toLowerCase();
+          return (
+            vehicle.brand.toLowerCase().includes(searchText) ||
+            vehicle.model.toLowerCase().includes(searchText) ||
+            vehicle.licensePlate.toLowerCase().includes(searchText) ||
+            vehicle.year.includes(searchText) ||
+            (vehicle.color && vehicle.color.toLowerCase().includes(searchText))
+          );
+        });
+
+        renderVehicles(filtered);
+      }
+
+      function updateStats() {
+        document.getElementById("total-vehicles").textContent = vehicles.length;
+        document.getElementById("needs-service").textContent = vehicles.filter(
+          (v) => v.status === "perlu_servis"
+        ).length;
+      }
+
+      function editVehicle(id) {
+        alert(`Edit kendaraan dengan ID: ${id}`);
+        // Implement edit functionality
+      }
+
+      function deleteVehicle(id) {
+        if (confirm("Apakah Anda yakin ingin menghapus kendaraan ini?")) {
+          vehicles = vehicles.filter((v) => v.id !== id);
+          renderVehicles();
+          updateStats();
+        }
+      }
+
+      function bookService(licensePlate) {
+        // Find the vehicle data
+        const vehicle = vehicles.find((v) => v.licensePlate === licensePlate);
+        if (vehicle) {
+          // Pre-fill booking form data
+          localStorage.setItem(
+            "vehicleInfo",
+            `${vehicle.brand} ${vehicle.model} ${vehicle.year}`
+          );
+          localStorage.setItem("licensePlate", vehicle.licensePlate);
+          localStorage.setItem("vehicleType", vehicle.type);
+          localStorage.setItem("vehicleBrand", vehicle.brand);
+          localStorage.setItem("vehicleModel", vehicle.model);
+          localStorage.setItem("vehicleYear", vehicle.year);
+          localStorage.setItem("vehicleOdometer", vehicle.odometer.toString());
+        }
+
+        // Redirect to booking page with pre-filled data
+        window.location.href = "booking-service.html";
+      }
+
+      function viewHistory(licensePlate) {
+        // Redirect to service history with filter
+        localStorage.setItem("filterVehicle", licensePlate);
+        window.location.href = "service-history.html";
+      }
+
+      // Initialize the page
+      renderVehicles();
+      updateStats();
+
+      // Search functionality
+      const searchInput = document.getElementById("vehicle-search");
+      searchInput.addEventListener("input", function (e) {
+        searchVehicles(e.target.value);
+      });
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", function (e) {
+        if (
+          e.key === "Escape" &&
+          !addVehicleModal.classList.contains("hidden")
+        ) {
+          hideModal();
+        }
+      });
+
+      // Profile dropdown functionality
+      const profileDropdown = document.getElementById("profile-dropdown");
+      const profileMenu = document.getElementById("profile-menu");
+
+      function toggleProfileMenu() {
+        profileMenu.classList.toggle("hidden");
+      }
+
+      function hideProfileMenu() {
+        profileMenu.classList.add("hidden");
+      }
+
+      profileDropdown.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleProfileMenu();
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !profileDropdown.contains(e.target) &&
+          !profileMenu.contains(e.target)
+        ) {
+          hideProfileMenu();
+        }
+      });
+
+      // Close dropdown when pressing escape
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          hideProfileMenu();
+        }
+      });
+    </script>
+
+    <!-- Navigation Enhancement Script -->
+    <script src="../navigation.js"></script>
+    <script src="../auth.js"></script>
+  </body>
+</html>

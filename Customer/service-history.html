@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riwayat Servis - JHMPRO</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "primary-blue": "#1E3A8A",
+              "secondary-blue": "#3B82F6",
+              "light-blue": "#EFF6FF",
+              "success-green": "#10B981",
+              "warning-orange": "#F59E0B",
+              "danger-red": "#EF4444",
+              purple: "#8B5CF6",
+              "gray-primary": "#374151",
+              "gray-secondary": "#6B7280",
+              "gray-heading": "#1F2937",
+              "gray-bg": "#F9FAFB",
+            },
+            fontFamily: {
+              inter: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-inter bg-gray-bg">
+    <!-- Sidebar Navigation -->
+    <div class="flex h-screen">
+      <aside
+        id="sidebar"
+        class="w-80 bg-gray-heading text-white transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out fixed lg:static inset-y-0 left-0 z-50"
+      >
+        <div
+          class="flex items-center justify-between h-16 px-6 border-b border-gray-600"
+        >
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-8 h-8 bg-secondary-blue rounded-lg flex items-center justify-center"
+            >
+              <span class="text-white font-bold text-sm">JH</span>
+            </div>
+            <span class="font-bold text-lg">JHMPRO</span>
+          </div>
+          <button id="sidebar-close" class="lg:hidden text-white">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <nav class="mt-6 pb-6">
+          <div class="space-y-1 px-6">
+            <a
+              href="dashboard-customer.html"
+              class="flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-tachometer-alt text-gray-400 text-lg w-5"></i>
+              <span class="text-sm font-medium">Dashboard</span>
+            </a>
+            <a
+              href="booking-service.html"
+              class="flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-calendar-plus text-gray-400 text-lg w-5"></i>
+              <span class="text-sm font-medium">Booking Servis</span>
+            </a>
+            <a
+              href="my-vehicles.html"
+              class="flex items-center space-x-3 px-3 py-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-motorcycle text-gray-400 text-lg w-5"></i>
+              <span class="text-sm font-medium">Kendaraan Saya</span>
+            </a>
+            <div
+              class="flex items-center space-x-3 px-3 py-3 rounded-lg bg-gray-primary border-l-4 border-secondary-blue"
+            >
+              <i class="fas fa-history text-secondary-blue text-lg w-5"></i>
+              <span class="text-sm font-semibold">Riwayat Servis</span>
+            </div>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Top Navigation -->
+        <header class="bg-white border-b border-gray-200 h-16">
+          <div class="flex items-center justify-between h-full px-6">
+            <div class="flex items-center space-x-4">
+              <button id="sidebar-toggle" class="lg:hidden text-gray-500">
+                <i class="fas fa-bars text-xl"></i>
+              </button>
+              <nav class="hidden sm:flex items-center space-x-2 text-sm">
+                <a href="dashboard-customer.html" class="text-secondary-blue"
+                  >Dashboard</a
+                >
+                <i class="fas fa-chevron-right text-gray-400 text-xs"></i>
+                <span class="text-gray-secondary">Riwayat Servis</span>
+              </nav>
+            </div>
+
+            <div class="flex items-center space-x-4">
+              <button
+                class="relative p-2 text-gray-500 hover:text-gray-primary"
+              >
+                <i class="fas fa-bell text-lg"></i>
+                <span
+                  class="absolute -top-1 -right-1 w-3 h-3 bg-danger-red rounded-full"
+                ></span>
+              </button>
+              <div class="relative">
+                <button
+                  id="profile-dropdown"
+                  class="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+                >
+                  <img
+                    src="https://via.placeholder.com/32x32"
+                    alt="User"
+                    class="w-8 h-8 rounded-full"
+                  />
+                  <span class="text-sm font-medium text-gray-primary"
+                    >John Doe</span
+                  >
+                  <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+                </button>
+
+                <!-- Dropdown Menu -->
+                <div
+                  id="profile-menu"
+                  class="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 hidden z-50"
+                >
+                  <div class="py-2">
+                    <a
+                      href="#"
+                      class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                    >
+                      <i class="fas fa-user text-gray-400 mr-3"></i>
+                      Profil
+                    </a>
+                    <a
+                      href="#"
+                      class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                    >
+                      <i class="fas fa-cog text-gray-400 mr-3"></i>
+                      Pengaturan
+                    </a>
+                    <hr class="my-2 border-gray-200" />
+                    <a
+                      href="#"
+                      onclick="logoutUser(); return false;"
+                      class="flex items-center px-4 py-2 text-sm text-danger-red hover:bg-red-50 transition-colors duration-200"
+                    >
+                      <i class="fas fa-sign-out-alt text-danger-red mr-3"></i>
+                      Keluar
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 overflow-y-auto p-6">
+          <!-- Page Header -->
+          <div class="mb-8">
+            <h1 class="text-2xl font-semibold text-gray-heading mb-2">
+              Riwayat Servis
+            </h1>
+            <p class="text-gray-secondary">
+              Lihat semua riwayat servis motor Anda
+            </p>
+          </div>
+
+          <!-- Filter Bar -->
+          <div class="bg-white rounded-xl p-6 shadow-sm mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <!-- Date Range -->
+              <div>
+                <label class="block text-sm font-medium text-gray-primary mb-2"
+                  >Rentang Tanggal</label
+                >
+                <select
+                  class="w-full h-10 px-3 border border-gray-300 rounded-lg focus:border-secondary-blue focus:ring-1 focus:ring-blue-100 transition-all duration-200"
+                >
+                  <option value="">Semua Tanggal</option>
+                  <option value="7d">7 Hari Terakhir</option>
+                  <option value="30d">30 Hari Terakhir</option>
+                  <option value="3m">3 Bulan Terakhir</option>
+                  <option value="1y">1 Tahun Terakhir</option>
+                </select>
+              </div>
+
+              <!-- Service Type -->
+              <div>
+                <label class="block text-sm font-medium text-gray-primary mb-2"
+                  >Jenis Layanan</label
+                >
+                <select
+                  class="w-full h-10 px-3 border border-gray-300 rounded-lg focus:border-secondary-blue focus:ring-1 focus:ring-blue-100 transition-all duration-200"
+                >
+                  <option value="">Semua Layanan</option>
+                  <option value="service">Servis Motor Rutin</option>
+                  <option value="oil">Ganti Oli Motor</option>
+                  <option value="tuneup">Tune Up Motor</option>
+                  <option value="cvt">Perbaikan CVT</option>
+                  <option value="chain">Ganti Rantai</option>
+                  <option value="brake">Servis Rem</option>
+                  <option value="wash">Cuci Motor</option>
+                </select>
+              </div>
+
+              <!-- Vehicle Filter -->
+              <div>
+                <label class="block text-sm font-medium text-gray-primary mb-2"
+                  >Motor</label
+                >
+                <select
+                  class="w-full h-10 px-3 border border-gray-300 rounded-lg focus:border-secondary-blue focus:ring-1 focus:ring-blue-100 transition-all duration-200"
+                >
+                  <option value="">Semua Motor</option>
+                  <option value="vario">Honda Vario 150 (B 1234 XYZ)</option>
+                  <option value="pcx">Yamaha PCX 160 (B 5678 ABC)</option>
+                  <option value="nmax">Yamaha NMAX (B 9012 DEF)</option>
+                </select>
+              </div>
+
+              <!-- Search -->
+              <div>
+                <label class="block text-sm font-medium text-gray-primary mb-2"
+                  >Cari</label
+                >
+                <div class="relative">
+                  <input
+                    type="text"
+                    placeholder="Cari berdasarkan ID atau catatan..."
+                    class="w-full h-10 pl-10 pr-3 border border-gray-300 rounded-lg focus:border-secondary-blue focus:ring-1 focus:ring-blue-100 transition-all duration-200"
+                  />
+                  <i
+                    class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                  ></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Status Filter Chips -->
+            <div class="mt-4 flex flex-wrap gap-2">
+              <span class="text-sm text-gray-secondary mr-2">Status:</span>
+              <button
+                class="px-3 py-1 text-xs font-medium bg-success-green text-white rounded-full"
+              >
+                Selesai
+              </button>
+              <button
+                class="px-3 py-1 text-xs font-medium bg-warning-orange text-white rounded-full"
+              >
+                Dalam Proses
+              </button>
+              <button
+                class="px-3 py-1 text-xs font-medium bg-secondary-blue text-white rounded-full"
+              >
+                Terjadwal
+              </button>
+              <button
+                class="px-3 py-1 text-xs font-medium bg-danger-red text-white rounded-full"
+              >
+                Dibatalkan
+              </button>
+              <button
+                class="px-3 py-1 text-xs font-medium bg-gray-200 text-gray-700 rounded-full hover:bg-gray-300"
+              >
+                Reset Filter
+              </button>
+            </div>
+          </div>
+
+          <!-- Service History Cards -->
+          <div class="space-y-6">
+            <!-- Service Card 1 -->
+            <div
+              class="bg-white border border-gray-200 rounded-xl hover:shadow-md transition-shadow duration-200"
+            >
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex items-start space-x-4">
+                    <div
+                      class="w-12 h-12 bg-success-green rounded-lg flex items-center justify-center"
+                    >
+                      <i class="fas fa-motorcycle text-white text-lg"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold text-gray-heading">
+                        Servis Motor Rutin + Ganti Oli
+                      </h3>
+                      <p class="text-sm text-gray-secondary">
+                        ID: #SRV-001 • 15 Desember 2024
+                      </p>
+                      <div class="flex items-center space-x-4 mt-2">
+                        <div class="flex items-center space-x-2">
+                          <i
+                            class="fas fa-motorcycle text-gray-400 text-sm"
+                          ></i>
+                          <span class="text-sm text-gray-primary"
+                            >Honda Vario 150 (B 1234 XYZ)</span
+                          >
+                        </div>
+                        <div class="flex items-center space-x-2">
+                          <i class="fas fa-clock text-gray-400 text-sm"></i>
+                          <span class="text-sm text-gray-primary">2.5 jam</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span
+                      class="px-3 py-1 text-xs font-medium bg-success-green text-white rounded-full"
+                      >Selesai</span
+                    >
+                    <p class="text-lg font-semibold text-gray-heading mt-2">
+                      Rp 450.000
+                    </p>
+                  </div>
+                </div>
+
+                <div class="border-t border-gray-100 pt-4">
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="text-sm">
+                      <span class="text-gray-secondary">Teknisi:</span>
+                      <p class="font-medium text-gray-primary">Agus Santoso</p>
+                    </div>
+                    <div class="text-sm">
+                      <span class="text-gray-secondary">Kilometer:</span>
+                      <p class="font-medium text-gray-primary">45.000 km</p>
+                    </div>
+                    <div class="text-sm">
+                      <span class="text-gray-secondary">Rating:</span>
+                      <div class="flex items-center space-x-1">
+                        <div class="flex text-warning-orange">
+                          <i class="fas fa-star text-xs"></i>
+                          <i class="fas fa-star text-xs"></i>
+                          <i class="fas fa-star text-xs"></i>
+                          <i class="fas fa-star text-xs"></i>
+                          <i class="fas fa-star text-xs"></i>
+                        </div>
+                        <span class="text-sm text-gray-primary">5.0</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between">
+                    <div class="flex space-x-3">
+                      <button
+                        class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                      >
+                        <i class="fas fa-eye mr-1"></i>Detail
+                      </button>
+                      <button
+                        class="text-success-green hover:text-green-700 text-sm font-medium"
+                      >
+                        <i class="fas fa-download mr-1"></i>Invoice
+                      </button>
+                      <button
+                        class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                      >
+                        <i class="fas fa-redo mr-1"></i>Booking Ulang
+                      </button>
+                    </div>
+                    <button class="text-gray-500 hover:text-gray-primary">
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Service Card 2 -->
+            <div
+              class="bg-white border border-gray-200 rounded-xl hover:shadow-md transition-shadow duration-200"
+            >
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex items-start space-x-4">
+                    <div
+                      class="w-12 h-12 bg-warning-orange rounded-lg flex items-center justify-center"
+                    >
+                      <i class="fas fa-clock text-white text-lg"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold text-gray-heading">
+                        Tune Up Motor
+                      </h3>
+                      <p class="text-sm text-gray-secondary">
+                        ID: #SRV-002 • 12 Desember 2024
+                      </p>
+                      <div class="flex items-center space-x-4 mt-2">
+                        <div class="flex items-center space-x-2">
+                          <i
+                            class="fas fa-motorcycle text-gray-400 text-sm"
+                          ></i>
+                          <span class="text-sm text-gray-primary"
+                            >Yamaha PCX 160 (B 5678 ABC)</span
+                          >
+                        </div>
+                        <div class="flex items-center space-x-2">
+                          <i class="fas fa-clock text-gray-400 text-sm"></i>
+                          <span class="text-sm text-gray-primary">1.5 jam</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span
+                      class="px-3 py-1 text-xs font-medium bg-warning-orange text-white rounded-full"
+                      >Dalam Proses</span
+                    >
+                    <p class="text-lg font-semibold text-gray-heading mt-2">
+                      Rp 320.000
+                    </p>
+                  </div>
+                </div>
+
+                <div class="border-t border-gray-100 pt-4">
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="text-sm">
+                      <span class="text-gray-secondary">Teknisi:</span>
+                      <p class="font-medium text-gray-primary">Budi Wahyono</p>
+                    </div>
+                    <div class="text-sm">
+                      <span class="text-gray-secondary">Kilometer:</span>
+                      <p class="font-medium text-gray-primary">78.500 km</p>
+                    </div>
+                    <div class="text-sm">
+                      <span class="text-gray-secondary">Progress:</span>
+                      <div class="flex items-center space-x-2">
+                        <div class="w-20 bg-gray-200 rounded-full h-2">
+                          <div
+                            class="bg-warning-orange h-2 rounded-full"
+                            style="width: 75%"
+                          ></div>
+                        </div>
+                        <span class="text-sm text-gray-primary">75%</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between">
+                    <div class="flex space-x-3">
+                      <button
+                        class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                      >
+                        <i class="fas fa-eye mr-1"></i>Detail
+                      </button>
+                      <button
+                        class="text-warning-orange hover:text-orange-700 text-sm font-medium"
+                      >
+                        <i class="fas fa-clock mr-1"></i>Track Progress
+                      </button>
+                    </div>
+                    <button class="text-gray-500 hover:text-gray-primary">
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Service Card 3 -->
+            <div
+              class="bg-white border border-gray-200 rounded-xl hover:shadow-md transition-shadow duration-200"
+            >
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex items-start space-x-4">
+                    <div
+                      class="w-12 h-12 bg-secondary-blue rounded-lg flex items-center justify-center"
+                    >
+                      <i class="fas fa-calendar text-white text-lg"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold text-gray-heading">
+                        Perbaikan CVT + Cleaning
+                      </h3>
+                      <p class="text-sm text-gray-secondary">
+                        ID: #SRV-003 • 18 Desember 2024
+                      </p>
+                      <div class="flex items-center space-x-4 mt-2">
+                        <div class="flex items-center space-x-2">
+                          <i
+                            class="fas fa-motorcycle text-gray-400 text-sm"
+                          ></i>
+                          <span class="text-sm text-gray-primary"
+                            >Yamaha NMAX (B 9012 DEF)</span
+                          >
+                        </div>
+                        <div class="flex items-center space-x-2">
+                          <i class="fas fa-clock text-gray-400 text-sm"></i>
+                          <span class="text-sm text-gray-primary">1 jam</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span
+                      class="px-3 py-1 text-xs font-medium bg-secondary-blue text-white rounded-full"
+                      >Terjadwal</span
+                    >
+                    <p class="text-lg font-semibold text-gray-heading mt-2">
+                      Rp 180.000
+                    </p>
+                  </div>
+                </div>
+
+                <div class="border-t border-gray-100 pt-4">
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="text-sm">
+                      <span class="text-gray-secondary">Jadwal:</span>
+                      <p class="font-medium text-gray-primary">
+                        18 Des 2024, 10:00 WIB
+                      </p>
+                    </div>
+                    <div class="text-sm">
+                      <span class="text-gray-secondary">Kilometer:</span>
+                      <p class="font-medium text-gray-primary">12.800 km</p>
+                    </div>
+                    <div class="text-sm">
+                      <span class="text-gray-secondary">Estimasi:</span>
+                      <p class="font-medium text-gray-primary">1 jam</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between">
+                    <div class="flex space-x-3">
+                      <button
+                        class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                      >
+                        <i class="fas fa-eye mr-1"></i>Detail
+                      </button>
+                      <button
+                        class="text-warning-orange hover:text-orange-700 text-sm font-medium"
+                      >
+                        <i class="fas fa-edit mr-1"></i>Reschedule
+                      </button>
+                      <button
+                        class="text-danger-red hover:text-red-700 text-sm font-medium"
+                      >
+                        <i class="fas fa-times mr-1"></i>Cancel
+                      </button>
+                    </div>
+                    <button class="text-gray-500 hover:text-gray-primary">
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Service Card 4 -->
+            <div
+              class="bg-white border border-gray-200 rounded-xl hover:shadow-md transition-shadow duration-200"
+            >
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-4">
+                  <div class="flex items-start space-x-4">
+                    <div
+                      class="w-12 h-12 bg-danger-red rounded-lg flex items-center justify-center"
+                    >
+                      <i class="fas fa-times text-white text-lg"></i>
+                    </div>
+                    <div>
+                      <h3 class="text-lg font-semibold text-gray-heading">
+                        Perbaikan Rem Motor
+                      </h3>
+                      <p class="text-sm text-gray-secondary">
+                        ID: #SRV-004 • 8 Desember 2024
+                      </p>
+                      <div class="flex items-center space-x-4 mt-2">
+                        <div class="flex items-center space-x-2">
+                          <i
+                            class="fas fa-motorcycle text-gray-400 text-sm"
+                          ></i>
+                          <span class="text-sm text-gray-primary"
+                            >Honda Vario 150 (B 1234 XYZ)</span
+                          >
+                        </div>
+                        <div class="flex items-center space-x-2">
+                          <i class="fas fa-ban text-gray-400 text-sm"></i>
+                          <span class="text-sm text-gray-primary"
+                            >Dibatalkan</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <span
+                      class="px-3 py-1 text-xs font-medium bg-danger-red text-white rounded-full"
+                      >Dibatalkan</span
+                    >
+                    <p class="text-lg font-semibold text-gray-400 mt-2">
+                      Rp 280.000
+                    </p>
+                  </div>
+                </div>
+
+                <div class="border-t border-gray-100 pt-4">
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div class="text-sm">
+                      <span class="text-gray-secondary">Alasan:</span>
+                      <p class="font-medium text-gray-primary">
+                        Dibatalkan oleh pelanggan
+                      </p>
+                    </div>
+                    <div class="text-sm">
+                      <span class="text-gray-secondary">Tanggal Batal:</span>
+                      <p class="font-medium text-gray-primary">7 Des 2024</p>
+                    </div>
+                    <div class="text-sm">
+                      <span class="text-gray-secondary">Refund:</span>
+                      <p class="font-medium text-success-green">Diproses</p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-center justify-between">
+                    <div class="flex space-x-3">
+                      <button
+                        class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                      >
+                        <i class="fas fa-eye mr-1"></i>Detail
+                      </button>
+                      <button
+                        class="text-secondary-blue hover:text-primary-blue text-sm font-medium"
+                      >
+                        <i class="fas fa-redo mr-1"></i>Booking Ulang
+                      </button>
+                    </div>
+                    <button class="text-gray-500 hover:text-gray-primary">
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="flex items-center justify-between mt-8">
+            <div class="text-sm text-gray-secondary">
+              Menampilkan 1-4 dari 24 riwayat servis
+            </div>
+            <div class="flex items-center space-x-2">
+              <button
+                class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                disabled
+              >
+                <i class="fas fa-chevron-left mr-1"></i>Previous
+              </button>
+              <button
+                class="px-3 py-2 text-sm bg-primary-blue text-white rounded-lg"
+              >
+                1
+              </button>
+              <button
+                class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+              >
+                2
+              </button>
+              <button
+                class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+              >
+                3
+              </button>
+              <button
+                class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+              >
+                Next<i class="fas fa-chevron-right ml-1"></i>
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div
+      id="sidebar-overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"
+    ></div>
+
+    <script>
+      // Sample service history data
+      const serviceHistory = [
+        {
+          id: "SRV-001",
+          date: "2024-12-15",
+          vehicle: "Honda Vario 150",
+          licensePlate: "B 1234 XYZ",
+          services: ["Servis Motor Rutin", "Ganti Oli"],
+          status: "completed",
+          cost: 275000,
+          duration: 2,
+        },
+        {
+          id: "SRV-002",
+          date: "2024-12-12",
+          vehicle: "Yamaha PCX 160",
+          licensePlate: "B 5678 ABC",
+          services: ["Ganti Oli", "Tune Up"],
+          status: "in_progress",
+          cost: 320000,
+          duration: 1.5,
+        },
+        {
+          id: "SRV-003",
+          date: "2024-12-18",
+          vehicle: "Yamaha NMAX",
+          licensePlate: "B 9012 DEF",
+          services: ["Perbaikan CVT", "Cleaning"],
+          status: "scheduled",
+          cost: 180000,
+          duration: 1,
+        },
+        {
+          id: "SRV-004",
+          date: "2024-12-08",
+          vehicle: "Honda Vario 150",
+          licensePlate: "B 1234 XYZ",
+          services: ["Perbaikan Rem Motor"],
+          status: "cancelled",
+          cost: 450000,
+          duration: 2.5,
+        },
+      ];
+
+      // Load vehicle filter if coming from vehicles page
+      function loadVehicleFilter() {
+        const filterVehicle = localStorage.getItem("filterVehicle");
+        if (filterVehicle) {
+          const vehicleSelect = document.querySelector("select:last-of-type");
+          if (vehicleSelect) {
+            // Find matching option
+            const options = vehicleSelect.options;
+            for (let i = 0; i < options.length; i++) {
+              if (options[i].text.includes(filterVehicle)) {
+                vehicleSelect.selectedIndex = i;
+                break;
+              }
+            }
+          }
+
+          // Filter the displayed history
+          filterHistory();
+
+          // Clear the filter from localStorage
+          localStorage.removeItem("filterVehicle");
+        }
+      }
+
+      function filterHistory() {
+        const vehicleFilter = document.querySelector(
+          "select:last-of-type"
+        ).value;
+        const serviceFilter = document.querySelector(
+          "select:nth-of-type(2)"
+        ).value;
+        const dateFilter = document.querySelector("select:first-of-type").value;
+
+        // This would filter the actual service history display
+        console.log("Filtering history with:", {
+          vehicleFilter,
+          serviceFilter,
+          dateFilter,
+        });
+
+        // In a real implementation, you would filter the serviceHistory array
+        // and re-render the service cards
+      }
+
+      // Sidebar toggle functionality
+      const sidebarToggle = document.getElementById("sidebar-toggle");
+      const sidebarClose = document.getElementById("sidebar-close");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+      function showSidebar() {
+        sidebar.classList.remove("-translate-x-full");
+        sidebarOverlay.classList.remove("hidden");
+      }
+
+      function hideSidebar() {
+        sidebar.classList.add("-translate-x-full");
+        sidebarOverlay.classList.add("hidden");
+      }
+
+      sidebarToggle.addEventListener("click", showSidebar);
+      sidebarClose.addEventListener("click", hideSidebar);
+      sidebarOverlay.addEventListener("click", hideSidebar);
+
+      // Filter functionality
+      document.querySelectorAll("select, input").forEach((element) => {
+        element.addEventListener("change", function () {
+          // Filter logic would go here
+          filterHistory();
+        });
+      });
+
+      // Status filter chips
+      document.querySelectorAll(".rounded-full").forEach((chip) => {
+        chip.addEventListener("click", function () {
+          // Toggle active state
+          this.classList.toggle("opacity-50");
+          // Filter logic would go here
+        });
+      });
+
+      // Load vehicle data when page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        loadVehicleFilter();
+      });
+
+      // Profile dropdown functionality
+      const profileDropdown = document.getElementById("profile-dropdown");
+      const profileMenu = document.getElementById("profile-menu");
+
+      function toggleProfileMenu() {
+        profileMenu.classList.toggle("hidden");
+      }
+
+      function hideProfileMenu() {
+        profileMenu.classList.add("hidden");
+      }
+
+      profileDropdown.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleProfileMenu();
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          !profileDropdown.contains(e.target) &&
+          !profileMenu.contains(e.target)
+        ) {
+          hideProfileMenu();
+        }
+      });
+
+      // Close dropdown when pressing escape
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          hideProfileMenu();
+        }
+      });
+    </script>
+
+    <!-- Navigation Enhancement Script -->
+    <script src="../navigation.js"></script>
+    <script src="../auth.js"></script>
+  </body>
+</html>

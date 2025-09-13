@@ -1,0 +1,1148 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manajemen Staff - JHMPRO Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "primary-blue": "#1E3A8A",
+              "secondary-blue": "#3B82F6",
+              "light-blue": "#EFF6FF",
+              "success-green": "#10B981",
+              "warning-orange": "#F59E0B",
+              "danger-red": "#EF4444",
+              purple: "#8B5CF6",
+              "gray-primary": "#374151",
+              "gray-secondary": "#6B7280",
+              "gray-heading": "#1F2937",
+              "gray-bg": "#F9FAFB",
+            },
+            fontFamily: {
+              inter: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-inter bg-gray-bg">
+    <!-- Sidebar Navigation -->
+    <div class="flex h-screen">
+      <aside
+        id="sidebar"
+        class="w-80 bg-gray-heading text-white transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out fixed lg:static inset-y-0 left-0 z-50"
+      >
+        <div
+          class="flex items-center justify-between h-16 px-6 border-b border-gray-600"
+        >
+          <div class="flex items-center space-x-3">
+            <div
+              class="w-8 h-8 bg-secondary-blue rounded-lg flex items-center justify-center"
+            >
+              <span class="text-white font-bold text-sm">JH</span>
+            </div>
+            <span class="font-bold text-lg">JHMPRO Admin</span>
+          </div>
+          <button id="sidebar-close" class="lg:hidden text-white">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <nav class="mt-8">
+          <div class="space-y-2 px-6">
+            <a
+              href="admin-dashboard.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-tachometer-alt text-gray-400 text-lg"></i>
+              <span>Dashboard</span>
+            </a>
+            <a
+              href="admin-booking.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-calendar-alt text-gray-400 text-lg"></i>
+              <span>Manajemen Booking</span>
+            </a>
+            <a
+              href="admin-customers.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-users text-gray-400 text-lg"></i>
+              <span>Manajemen Pelanggan</span>
+            </a>
+            <a
+              href="admin-services.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-tools text-gray-400 text-lg"></i>
+              <span>Manajemen Layanan</span>
+            </a>
+            <a
+              href="admin-reports.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-chart-bar text-gray-400 text-lg"></i>
+              <span>Laporan</span>
+            </a>
+            <a
+              href="admin-inventory.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-box text-gray-400 text-lg"></i>
+              <span>Inventory</span>
+            </a>
+            <a
+              href="admin-staff.html"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-user-tie text-gray-400 text-lg"></i>
+              <span class="font-medium">Manajemen Staff</span>
+            </a>
+            <a
+              href="#"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200"
+            >
+              <i class="fas fa-cog text-gray-400 text-lg"></i>
+              <span>Pengaturan</span>
+            </a>
+          </div>
+
+          <div class="mt-auto px-6 pb-6">
+            <a
+              href="#" onclick="logoutUser(); return false;"
+              class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-primary transition-colors duration-200 text-danger-red"
+            >
+              <i class="fas fa-sign-out-alt text-lg"></i>
+              <span>Keluar</span>
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-hidden">
+        <!-- Header -->
+        <header class="bg-white shadow-sm border-b border-gray-200">
+          <div class="flex items-center justify-between px-6 py-4">
+            <div class="flex items-center space-x-4">
+              <button id="sidebar-toggle" class="lg:hidden text-gray-500">
+                <i class="fas fa-bars text-xl"></i>
+              </button>
+              <div>
+                <h1 class="text-2xl font-semibold text-gray-heading">
+                  Manajemen Staff
+                </h1>
+                <p class="text-sm text-gray-secondary mt-1">
+                  Kelola data karyawan dan akses sistem
+                </p>
+              </div>
+            </div>
+            <div class="flex items-center space-x-4">
+              <button
+                class="bg-primary-blue text-white px-4 py-2 rounded-lg hover:bg-blue-900 transition-colors duration-200"
+                onclick="openAddStaffModal()"
+              >
+                <i class="fas fa-plus mr-2"></i>Tambah Staff
+              </button>
+              <button
+                class="relative p-2 text-gray-500 hover:text-gray-primary"
+              >
+                <i class="fas fa-bell text-lg"></i>
+                <span
+                  class="absolute -top-1 -right-1 w-3 h-3 bg-danger-red rounded-full"
+                ></span>
+              </button>
+              <div class="flex items-center space-x-3">
+                <img
+                  src="https://via.placeholder.com/32x32"
+                  alt="Admin"
+                  class="w-8 h-8 rounded-full"
+                />
+                <span class="text-sm font-medium text-gray-primary"
+                  >Admin User</span
+                >
+                <i class="fas fa-chevron-down text-gray-400 text-xs"></i>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 overflow-y-auto p-6">
+          <!-- Stats Cards -->
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <!-- Total Staff -->
+            <div
+              class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-primary-blue"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary mb-1">Total Staff</p>
+                  <p class="text-2xl font-bold text-gray-heading">24</p>
+                  <div class="flex items-center mt-2">
+                    <i
+                      class="fas fa-arrow-up text-success-green text-xs mr-1"
+                    ></i>
+                    <span class="text-xs text-success-green">+2 bulan ini</span>
+                  </div>
+                </div>
+                <div
+                  class="w-12 h-12 bg-primary-blue rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-users text-white text-lg"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Active Staff -->
+            <div
+              class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-success-green"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary mb-1">Staff Aktif</p>
+                  <p class="text-2xl font-bold text-gray-heading">22</p>
+                  <div class="flex items-center mt-2">
+                    <i
+                      class="fas fa-check-circle text-success-green text-xs mr-1"
+                    ></i>
+                    <span class="text-xs text-success-green">Online</span>
+                  </div>
+                </div>
+                <div
+                  class="w-12 h-12 bg-success-green rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-user-check text-white text-lg"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mechanics -->
+            <div
+              class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-warning-orange"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary mb-1">Mekanik</p>
+                  <p class="text-2xl font-bold text-gray-heading">18</p>
+                  <div class="flex items-center mt-2">
+                    <i
+                      class="fas fa-wrench text-warning-orange text-xs mr-1"
+                    ></i>
+                    <span class="text-xs text-warning-orange">Tersedia</span>
+                  </div>
+                </div>
+                <div
+                  class="w-12 h-12 bg-warning-orange rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-tools text-white text-lg"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Admins -->
+            <div
+              class="bg-white rounded-xl p-6 shadow-sm border-l-4 border-purple"
+            >
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-sm text-gray-secondary mb-1">Admin</p>
+                  <p class="text-2xl font-bold text-gray-heading">6</p>
+                  <div class="flex items-center mt-2">
+                    <i class="fas fa-shield-alt text-purple text-xs mr-1"></i>
+                    <span class="text-xs text-purple">Authorized</span>
+                  </div>
+                </div>
+                <div
+                  class="w-12 h-12 bg-purple rounded-lg flex items-center justify-center"
+                >
+                  <i class="fas fa-user-shield text-white text-lg"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filters and Search -->
+          <div class="bg-white rounded-xl shadow-sm mb-6">
+            <div class="p-6 border-b border-gray-200">
+              <div
+                class="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-4 lg:space-y-0"
+              >
+                <div class="flex items-center space-x-4">
+                  <div class="relative">
+                    <input
+                      type="text"
+                      placeholder="Cari staff..."
+                      class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                    />
+                    <i
+                      class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    ></i>
+                  </div>
+                  <select
+                    class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue"
+                  >
+                    <option>Semua Posisi</option>
+                    <option>Mekanik</option>
+                    <option>Admin</option>
+                    <option>Supervisor</option>
+                    <option>Customer Service</option>
+                  </select>
+                  <select
+                    class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue"
+                  >
+                    <option>Semua Status</option>
+                    <option>Aktif</option>
+                    <option>Non-Aktif</option>
+                    <option>Cuti</option>
+                  </select>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <button
+                    class="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"
+                  >
+                    <i class="fas fa-filter mr-2"></i>Filter
+                  </button>
+                  <button
+                    class="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50"
+                  >
+                    <i class="fas fa-download mr-2"></i>Export
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Staff Table -->
+          <div class="bg-white rounded-xl shadow-sm">
+            <div class="p-6 border-b border-gray-200">
+              <div class="flex items-center justify-between">
+                <h3 class="text-lg font-semibold text-gray-heading">
+                  Daftar Staff
+                </h3>
+                <span class="text-sm text-gray-secondary">24 staff total</span>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-gray-bg">
+                  <tr>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      <input type="checkbox" class="rounded border-gray-300" />
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Staff
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Posisi
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Kontak
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Bergabung
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Status
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Shift Hari Ini
+                    </th>
+                    <th
+                      class="text-left py-3 px-6 text-sm font-medium text-gray-secondary"
+                    >
+                      Aksi
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Staff Member 1 -->
+                  <tr class="border-b border-gray-100 hover:bg-light-blue">
+                    <td class="py-4 px-6">
+                      <input type="checkbox" class="rounded border-gray-300" />
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-3">
+                        <img
+                          src="https://via.placeholder.com/40x40"
+                          alt="Ahmad Fauzi"
+                          class="w-10 h-10 rounded-full"
+                        />
+                        <div>
+                          <p class="text-sm font-medium text-gray-heading">
+                            Ahmad Fauzi
+                          </p>
+                          <p class="text-xs text-gray-secondary">ID: EMP001</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-2">
+                        <span
+                          class="px-2 py-1 text-xs font-medium bg-warning-orange text-white rounded-full"
+                        >
+                          <i class="fas fa-wrench mr-1"></i>Senior Mekanik
+                        </span>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div>
+                        <p class="text-sm text-gray-heading">
+                          +62 812-3456-7890
+                        </p>
+                        <p class="text-xs text-gray-secondary">
+                          ahmad.fauzi@jhmpro.com
+                        </p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6 text-sm text-gray-primary">
+                      15 Jan 2022
+                    </td>
+                    <td class="py-4 px-6">
+                      <span
+                        class="px-3 py-1 text-xs font-medium bg-success-green text-white rounded-full"
+                      >
+                        <i
+                          class="fas fa-circle mr-1"
+                          style="font-size: 6px"
+                        ></i>
+                        Aktif
+                      </span>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="text-sm">
+                        <p class="text-gray-heading font-medium">
+                          08:00 - 17:00
+                        </p>
+                        <p class="text-xs text-success-green">
+                          <i class="fas fa-clock mr-1"></i>Hadir
+                        </p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-2">
+                        <button
+                          class="p-2 text-secondary-blue hover:bg-light-blue rounded-lg"
+                          onclick="viewStaffDetail('EMP001')"
+                        >
+                          <i class="fas fa-eye text-sm"></i>
+                        </button>
+                        <button
+                          class="p-2 text-warning-orange hover:bg-orange-50 rounded-lg"
+                          onclick="editStaff('EMP001')"
+                        >
+                          <i class="fas fa-edit text-sm"></i>
+                        </button>
+                        <button
+                          class="p-2 text-danger-red hover:bg-red-50 rounded-lg"
+                          onclick="deleteStaff('EMP001')"
+                        >
+                          <i class="fas fa-trash text-sm"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Staff Member 2 -->
+                  <tr class="border-b border-gray-100 hover:bg-light-blue">
+                    <td class="py-4 px-6">
+                      <input type="checkbox" class="rounded border-gray-300" />
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-3">
+                        <img
+                          src="https://via.placeholder.com/40x40"
+                          alt="Siti Nurhaliza"
+                          class="w-10 h-10 rounded-full"
+                        />
+                        <div>
+                          <p class="text-sm font-medium text-gray-heading">
+                            Siti Nurhaliza
+                          </p>
+                          <p class="text-xs text-gray-secondary">ID: EMP002</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-2">
+                        <span
+                          class="px-2 py-1 text-xs font-medium bg-purple text-white rounded-full"
+                        >
+                          <i class="fas fa-headset mr-1"></i>Customer Service
+                        </span>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div>
+                        <p class="text-sm text-gray-heading">
+                          +62 813-4567-8901
+                        </p>
+                        <p class="text-xs text-gray-secondary">
+                          siti.nurhaliza@jhmpro.com
+                        </p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6 text-sm text-gray-primary">
+                      22 Mar 2022
+                    </td>
+                    <td class="py-4 px-6">
+                      <span
+                        class="px-3 py-1 text-xs font-medium bg-success-green text-white rounded-full"
+                      >
+                        <i
+                          class="fas fa-circle mr-1"
+                          style="font-size: 6px"
+                        ></i>
+                        Aktif
+                      </span>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="text-sm">
+                        <p class="text-gray-heading font-medium">
+                          09:00 - 18:00
+                        </p>
+                        <p class="text-xs text-success-green">
+                          <i class="fas fa-clock mr-1"></i>Hadir
+                        </p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-2">
+                        <button
+                          class="p-2 text-secondary-blue hover:bg-light-blue rounded-lg"
+                          onclick="viewStaffDetail('EMP002')"
+                        >
+                          <i class="fas fa-eye text-sm"></i>
+                        </button>
+                        <button
+                          class="p-2 text-warning-orange hover:bg-orange-50 rounded-lg"
+                          onclick="editStaff('EMP002')"
+                        >
+                          <i class="fas fa-edit text-sm"></i>
+                        </button>
+                        <button
+                          class="p-2 text-danger-red hover:bg-red-50 rounded-lg"
+                          onclick="deleteStaff('EMP002')"
+                        >
+                          <i class="fas fa-trash text-sm"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Staff Member 3 -->
+                  <tr class="border-b border-gray-100 hover:bg-light-blue">
+                    <td class="py-4 px-6">
+                      <input type="checkbox" class="rounded border-gray-300" />
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-3">
+                        <img
+                          src="https://via.placeholder.com/40x40"
+                          alt="Budi Santoso"
+                          class="w-10 h-10 rounded-full"
+                        />
+                        <div>
+                          <p class="text-sm font-medium text-gray-heading">
+                            Budi Santoso
+                          </p>
+                          <p class="text-xs text-gray-secondary">ID: EMP003</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-2">
+                        <span
+                          class="px-2 py-1 text-xs font-medium bg-secondary-blue text-white rounded-full"
+                        >
+                          <i class="fas fa-user-shield mr-1"></i>Supervisor
+                        </span>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div>
+                        <p class="text-sm text-gray-heading">
+                          +62 814-5678-9012
+                        </p>
+                        <p class="text-xs text-gray-secondary">
+                          budi.santoso@jhmpro.com
+                        </p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6 text-sm text-gray-primary">
+                      10 Nov 2021
+                    </td>
+                    <td class="py-4 px-6">
+                      <span
+                        class="px-3 py-1 text-xs font-medium bg-warning-orange text-white rounded-full"
+                      >
+                        <i
+                          class="fas fa-circle mr-1"
+                          style="font-size: 6px"
+                        ></i>
+                        Cuti
+                      </span>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="text-sm">
+                        <p class="text-gray-heading font-medium">
+                          07:00 - 16:00
+                        </p>
+                        <p class="text-xs text-warning-orange">
+                          <i class="fas fa-calendar-times mr-1"></i>Cuti
+                        </p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-2">
+                        <button
+                          class="p-2 text-secondary-blue hover:bg-light-blue rounded-lg"
+                          onclick="viewStaffDetail('EMP003')"
+                        >
+                          <i class="fas fa-eye text-sm"></i>
+                        </button>
+                        <button
+                          class="p-2 text-warning-orange hover:bg-orange-50 rounded-lg"
+                          onclick="editStaff('EMP003')"
+                        >
+                          <i class="fas fa-edit text-sm"></i>
+                        </button>
+                        <button
+                          class="p-2 text-danger-red hover:bg-red-50 rounded-lg"
+                          onclick="deleteStaff('EMP003')"
+                        >
+                          <i class="fas fa-trash text-sm"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Staff Member 4 -->
+                  <tr class="border-b border-gray-100 hover:bg-light-blue">
+                    <td class="py-4 px-6">
+                      <input type="checkbox" class="rounded border-gray-300" />
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-3">
+                        <img
+                          src="https://via.placeholder.com/40x40"
+                          alt="Dewi Lestari"
+                          class="w-10 h-10 rounded-full"
+                        />
+                        <div>
+                          <p class="text-sm font-medium text-gray-heading">
+                            Dewi Lestari
+                          </p>
+                          <p class="text-xs text-gray-secondary">ID: EMP004</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-2">
+                        <span
+                          class="px-2 py-1 text-xs font-medium bg-primary-blue text-white rounded-full"
+                        >
+                          <i class="fas fa-user-cog mr-1"></i>Admin
+                        </span>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div>
+                        <p class="text-sm text-gray-heading">
+                          +62 815-6789-0123
+                        </p>
+                        <p class="text-xs text-gray-secondary">
+                          dewi.lestari@jhmpro.com
+                        </p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6 text-sm text-gray-primary">
+                      05 Jul 2022
+                    </td>
+                    <td class="py-4 px-6">
+                      <span
+                        class="px-3 py-1 text-xs font-medium bg-success-green text-white rounded-full"
+                      >
+                        <i
+                          class="fas fa-circle mr-1"
+                          style="font-size: 6px"
+                        ></i>
+                        Aktif
+                      </span>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="text-sm">
+                        <p class="text-gray-heading font-medium">
+                          08:30 - 17:30
+                        </p>
+                        <p class="text-xs text-success-green">
+                          <i class="fas fa-clock mr-1"></i>Hadir
+                        </p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-2">
+                        <button
+                          class="p-2 text-secondary-blue hover:bg-light-blue rounded-lg"
+                          onclick="viewStaffDetail('EMP004')"
+                        >
+                          <i class="fas fa-eye text-sm"></i>
+                        </button>
+                        <button
+                          class="p-2 text-warning-orange hover:bg-orange-50 rounded-lg"
+                          onclick="editStaff('EMP004')"
+                        >
+                          <i class="fas fa-edit text-sm"></i>
+                        </button>
+                        <button
+                          class="p-2 text-danger-red hover:bg-red-50 rounded-lg"
+                          onclick="deleteStaff('EMP004')"
+                        >
+                          <i class="fas fa-trash text-sm"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+
+                  <!-- Staff Member 5 -->
+                  <tr class="border-b border-gray-100 hover:bg-light-blue">
+                    <td class="py-4 px-6">
+                      <input type="checkbox" class="rounded border-gray-300" />
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-3">
+                        <img
+                          src="https://via.placeholder.com/40x40"
+                          alt="Rizki Pratama"
+                          class="w-10 h-10 rounded-full"
+                        />
+                        <div>
+                          <p class="text-sm font-medium text-gray-heading">
+                            Rizki Pratama
+                          </p>
+                          <p class="text-xs text-gray-secondary">ID: EMP005</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-2">
+                        <span
+                          class="px-2 py-1 text-xs font-medium bg-warning-orange text-white rounded-full"
+                        >
+                          <i class="fas fa-wrench mr-1"></i>Mekanik
+                        </span>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div>
+                        <p class="text-sm text-gray-heading">
+                          +62 816-7890-1234
+                        </p>
+                        <p class="text-xs text-gray-secondary">
+                          rizki.pratama@jhmpro.com
+                        </p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6 text-sm text-gray-primary">
+                      18 Sep 2023
+                    </td>
+                    <td class="py-4 px-6">
+                      <span
+                        class="px-3 py-1 text-xs font-medium bg-danger-red text-white rounded-full"
+                      >
+                        <i
+                          class="fas fa-circle mr-1"
+                          style="font-size: 6px"
+                        ></i>
+                        Non-Aktif
+                      </span>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="text-sm">
+                        <p class="text-gray-heading font-medium">
+                          08:00 - 17:00
+                        </p>
+                        <p class="text-xs text-danger-red">
+                          <i class="fas fa-times-circle mr-1"></i>Tidak Hadir
+                        </p>
+                      </div>
+                    </td>
+                    <td class="py-4 px-6">
+                      <div class="flex items-center space-x-2">
+                        <button
+                          class="p-2 text-secondary-blue hover:bg-light-blue rounded-lg"
+                          onclick="viewStaffDetail('EMP005')"
+                        >
+                          <i class="fas fa-eye text-sm"></i>
+                        </button>
+                        <button
+                          class="p-2 text-warning-orange hover:bg-orange-50 rounded-lg"
+                          onclick="editStaff('EMP005')"
+                        >
+                          <i class="fas fa-edit text-sm"></i>
+                        </button>
+                        <button
+                          class="p-2 text-danger-red hover:bg-red-50 rounded-lg"
+                          onclick="deleteStaff('EMP005')"
+                        >
+                          <i class="fas fa-trash text-sm"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            <div
+              class="flex items-center justify-between px-6 py-4 border-t border-gray-200"
+            >
+              <div class="text-sm text-gray-secondary">
+                Menampilkan 1-5 dari 24 staff
+              </div>
+              <div class="flex items-center space-x-2">
+                <button
+                  class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                  disabled
+                >
+                  <i class="fas fa-chevron-left mr-1"></i>Sebelumnya
+                </button>
+                <button
+                  class="px-3 py-2 text-sm bg-primary-blue text-white rounded-lg"
+                >
+                  1
+                </button>
+                <button
+                  class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  2
+                </button>
+                <button
+                  class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  3
+                </button>
+                <button
+                  class="px-3 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+                >
+                  <i class="fas fa-chevron-right ml-1"></i>Selanjutnya
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Sidebar Overlay for Mobile -->
+    <div
+      id="sidebar-overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden hidden"
+    ></div>
+
+    <!-- Add Staff Modal -->
+    <div
+      id="addStaffModal"
+      class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-white rounded-xl shadow-xl max-w-2xl w-full max-h-screen overflow-y-auto"
+      >
+        <div class="p-6 border-b border-gray-200">
+          <div class="flex items-center justify-between">
+            <h3 class="text-xl font-semibold text-gray-heading">
+              Tambah Staff Baru
+            </h3>
+            <button
+              onclick="closeAddStaffModal()"
+              class="text-gray-400 hover:text-gray-600"
+            >
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+        </div>
+
+        <form class="p-6 space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Personal Information -->
+            <div class="space-y-4">
+              <h4 class="text-lg font-medium text-gray-heading">
+                Informasi Pribadi
+              </h4>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Nama Lengkap
+                </label>
+                <input
+                  type="text"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                  placeholder="Masukkan nama lengkap"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Nomor Telepon
+                </label>
+                <input
+                  type="tel"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                  placeholder="+62 812-3456-7890"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                  placeholder="nama@jhmpro.com"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Alamat
+                </label>
+                <textarea
+                  rows="3"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                  placeholder="Alamat lengkap"
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Job Information -->
+            <div class="space-y-4">
+              <h4 class="text-lg font-medium text-gray-heading">
+                Informasi Pekerjaan
+              </h4>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  ID Karyawan
+                </label>
+                <input
+                  type="text"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                  placeholder="EMP006"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Posisi/Jabatan
+                </label>
+                <select
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue"
+                >
+                  <option>Pilih Posisi</option>
+                  <option>Mekanik</option>
+                  <option>Senior Mekanik</option>
+                  <option>Supervisor</option>
+                  <option>Admin</option>
+                  <option>Customer Service</option>
+                  <option>Kasir</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Gaji Pokok
+                </label>
+                <input
+                  type="number"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                  placeholder="5000000"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Tanggal Bergabung
+                </label>
+                <input
+                  type="date"
+                  class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Jadwal Kerja
+                </label>
+                <div class="grid grid-cols-2 gap-3">
+                  <input
+                    type="time"
+                    class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                    placeholder="Jam Masuk"
+                  />
+                  <input
+                    type="time"
+                    class="px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-blue focus:border-transparent"
+                    placeholder="Jam Keluar"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Access Permissions -->
+          <div class="border-t border-gray-200 pt-6">
+            <h4 class="text-lg font-medium text-gray-heading mb-4">
+              Hak Akses Sistem
+            </h4>
+            <div class="grid grid-cols-2 gap-4">
+              <label class="flex items-center space-x-3">
+                <input type="checkbox" class="rounded border-gray-300" />
+                <span class="text-sm text-gray-700">Dashboard Admin</span>
+              </label>
+              <label class="flex items-center space-x-3">
+                <input type="checkbox" class="rounded border-gray-300" />
+                <span class="text-sm text-gray-700">Manajemen Booking</span>
+              </label>
+              <label class="flex items-center space-x-3">
+                <input type="checkbox" class="rounded border-gray-300" />
+                <span class="text-sm text-gray-700">Manajemen Pelanggan</span>
+              </label>
+              <label class="flex items-center space-x-3">
+                <input type="checkbox" class="rounded border-gray-300" />
+                <span class="text-sm text-gray-700">Manajemen Layanan</span>
+              </label>
+              <label class="flex items-center space-x-3">
+                <input type="checkbox" class="rounded border-gray-300" />
+                <span class="text-sm text-gray-700">Laporan & Analitik</span>
+              </label>
+              <label class="flex items-center space-x-3">
+                <input type="checkbox" class="rounded border-gray-300" />
+                <span class="text-sm text-gray-700">Inventory</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div
+            class="flex items-center justify-end space-x-4 pt-6 border-t border-gray-200"
+          >
+            <button
+              type="button"
+              onclick="closeAddStaffModal()"
+              class="px-6 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+            >
+              Batal
+            </button>
+            <button
+              type="submit"
+              class="px-6 py-2 bg-primary-blue text-white rounded-lg hover:bg-blue-900 transition-colors duration-200"
+            >
+              <i class="fas fa-save mr-2"></i>Simpan Staff
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Sidebar toggle functionality
+      const sidebarToggle = document.getElementById("sidebar-toggle");
+      const sidebarClose = document.getElementById("sidebar-close");
+      const sidebar = document.getElementById("sidebar");
+      const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+      function showSidebar() {
+        sidebar.classList.remove("-translate-x-full");
+        sidebarOverlay.classList.remove("hidden");
+      }
+
+      function hideSidebar() {
+        sidebar.classList.add("-translate-x-full");
+        sidebarOverlay.classList.add("hidden");
+      }
+
+      sidebarToggle.addEventListener("click", showSidebar);
+      sidebarClose.addEventListener("click", hideSidebar);
+      sidebarOverlay.addEventListener("click", hideSidebar);
+
+      // Modal functions
+      function openAddStaffModal() {
+        document.getElementById("addStaffModal").classList.remove("hidden");
+      }
+
+      function closeAddStaffModal() {
+        document.getElementById("addStaffModal").classList.add("hidden");
+      }
+
+      // Staff management functions
+      function viewStaffDetail(staffId) {
+        alert("View detail for staff: " + staffId);
+        // Implementation for viewing staff details
+      }
+
+      function editStaff(staffId) {
+        alert("Edit staff: " + staffId);
+        // Implementation for editing staff
+      }
+
+      function deleteStaff(staffId) {
+        if (confirm("Apakah Anda yakin ingin menghapus staff ini?")) {
+          alert("Delete staff: " + staffId);
+          // Implementation for deleting staff
+        }
+      }
+
+      // Close modal when clicking outside
+      document
+        .getElementById("addStaffModal")
+        .addEventListener("click", function (e) {
+          if (e.target === this) {
+            closeAddStaffModal();
+          }
+        });
+    </script>
+    <script src="../navigation.js"></script>
+    <script src="../auth.js"></script>
+    
+    
+    <script>
+      // Check authentication on page load
+      document.addEventListener("DOMContentLoaded", function() {
+        if (!RouteProtection.requireAuth("../login.html")) {
+          return;
+        }
+        RouteProtection.requireRole("admin", "../index.html");
+      });
+    </script>
+  </body>
+</html>

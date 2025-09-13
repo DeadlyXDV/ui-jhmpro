@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JHMPRO - Bengkel Motor Terpercaya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              "primary-blue": "#1E3A8A",
+              "secondary-blue": "#3B82F6",
+              "light-blue": "#EFF6FF",
+              "success-green": "#10B981",
+              "warning-orange": "#F59E0B",
+              "danger-red": "#EF4444",
+              "gray-primary": "#374151",
+              "gray-secondary": "#6B7280",
+              "gray-heading": "#1F2937",
+              "gray-bg": "#F9FAFB",
+            },
+            fontFamily: {
+              inter: ["Inter", "system-ui", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="font-inter bg-gray-bg">
+    <!-- Header Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <nav class="container mx-auto px-4 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          <!-- Logo -->
+          <div class="flex-shrink-0">
+            <div
+              class="w-32 h-10 bg-primary-blue rounded-lg flex items-center justify-center"
+            >
+              <span class="text-white font-bold text-xl">JHMPRO</span>
+            </div>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a
+              href="#"
+              class="text-gray-primary hover:text-primary-blue transition-colors duration-200 relative group"
+            >
+              Beranda
+              <span
+                class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-blue transition-all duration-200 group-hover:w-full"
+              ></span>
+            </a>
+            <a
+              href="#layanan"
+              class="text-gray-primary hover:text-primary-blue transition-colors duration-200 relative group"
+            >
+              Layanan
+              <span
+                class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-blue transition-all duration-200 group-hover:w-full"
+              ></span>
+            </a>
+            <a
+              href="#tentang"
+              class="text-gray-primary hover:text-primary-blue transition-colors duration-200 relative group"
+            >
+              Tentang Kami
+              <span
+                class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-blue transition-all duration-200 group-hover:w-full"
+              ></span>
+            </a>
+            <a
+              href="#kontak"
+              class="text-gray-primary hover:text-primary-blue transition-colors duration-200 relative group"
+            >
+              Kontak
+              <span
+                class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-blue transition-all duration-200 group-hover:w-full"
+              ></span>
+            </a>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="hidden md:flex items-center space-x-4">
+            <a
+              href="login.html"
+              class="border-2 border-primary-blue text-primary-blue px-6 py-2 rounded-lg hover:bg-primary-blue hover:text-white transition-all duration-200"
+            >
+              Masuk
+            </a>
+            <a
+              href="register.html"
+              class="bg-primary-blue text-white px-6 py-2 rounded-lg hover:bg-blue-900 transition-all duration-200 transform hover:scale-105"
+            >
+              Daftar
+            </a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden">
+            <button id="mobile-menu-button" class="text-gray-primary">
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+        <div class="px-4 py-2 space-y-2">
+          <a href="#" class="block py-2 text-gray-primary">Beranda</a>
+          <a href="#layanan" class="block py-2 text-gray-primary">Layanan</a>
+          <a href="#tentang" class="block py-2 text-gray-primary"
+            >Tentang Kami</a
+          >
+          <a href="#kontak" class="block py-2 text-gray-primary">Kontak</a>
+          <div class="pt-4 pb-2 space-y-2">
+            <a
+              href="login.html"
+              class="block w-full border-2 border-primary-blue text-primary-blue px-4 py-2 rounded-lg text-center"
+            >
+              Masuk
+            </a>
+            <a
+              href="register.html"
+              class="block w-full bg-primary-blue text-white px-4 py-2 rounded-lg text-center"
+            >
+              Daftar
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-b from-light-blue to-white py-20">
+      <div class="container mx-auto px-4 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+          <!-- Content -->
+          <div class="lg:col-span-3 space-y-8">
+            <h1
+              class="text-4xl lg:text-5xl font-bold text-gray-heading leading-tight"
+            >
+              Bengkel Motor Specialist
+              <span class="text-primary-blue">Terpercaya</span>
+            </h1>
+            <p class="text-xl text-gray-secondary leading-relaxed">
+              Kelola bengkel motor Anda dengan mudah menggunakan sistem
+              manajemen terintegrasi. Dari booking hingga riwayat servis motor,
+              semua dalam satu platform.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a
+                href="Customer/booking-service.html"
+                class="bg-primary-blue text-white px-8 py-4 rounded-lg text-lg font-medium hover:scale-105 hover:shadow-lg transition-all duration-200 text-center"
+              >
+                Mulai Sekarang
+              </a>
+              <a
+                href="#layanan"
+                class="border-2 border-primary-blue text-primary-blue px-8 py-4 rounded-lg text-lg font-medium hover:bg-primary-blue hover:text-white transition-all duration-200 text-center"
+              >
+                Pelajari Lebih Lanjut
+              </a>
+            </div>
+          </div>
+
+          <!-- Image -->
+          <div class="lg:col-span-2">
+            <div
+              class="bg-gradient-to-br from-secondary-blue to-primary-blue rounded-2xl p-8 text-white text-center"
+            >
+              <i class="fas fa-motorcycle text-6xl mb-4"></i>
+              <h3 class="text-2xl font-semibold mb-2">Bengkel Motor Modern</h3>
+              <p class="text-blue-200">
+                Teknologi terdepan untuk perawatan motor masa depan
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="layanan" class="bg-white py-20">
+      <div class="container mx-auto px-4 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl lg:text-4xl font-semibold text-gray-heading mb-4">
+            Layanan Unggulan Kami
+          </h2>
+          <p class="text-xl text-gray-secondary max-w-2xl mx-auto">
+            Berbagai layanan profesional untuk memenuhi kebutuhan motor Anda
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Service Card 1 -->
+          <div
+            class="bg-gray-bg rounded-xl p-8 hover:shadow-lg hover:border-2 hover:border-secondary-blue transition-all duration-300 group cursor-pointer"
+          >
+            <div
+              class="w-12 h-12 bg-primary-blue rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200"
+            >
+              <i class="fas fa-wrench text-white text-xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-heading mb-4">
+              Servis Motor Rutin
+            </h3>
+            <p class="text-gray-secondary leading-relaxed">
+              Perawatan berkala untuk menjaga performa motor tetap optimal
+              dengan teknisi berpengalaman khusus motor.
+            </p>
+          </div>
+
+          <!-- Service Card 2 -->
+          <div
+            class="bg-gray-bg rounded-xl p-8 hover:shadow-lg hover:border-2 hover:border-secondary-blue transition-all duration-300 group cursor-pointer"
+          >
+            <div
+              class="w-12 h-12 bg-success-green rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200"
+            >
+              <i class="fas fa-oil-can text-white text-xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-heading mb-4">
+              Ganti Oli Motor
+            </h3>
+            <p class="text-gray-secondary leading-relaxed">
+              Layanan penggantian oli motor berkualitas tinggi dengan berbagai
+              pilihan merek terpercaya untuk semua jenis motor.
+            </p>
+          </div>
+
+          <!-- Service Card 3 -->
+          <div
+            class="bg-gray-bg rounded-xl p-8 hover:shadow-lg hover:border-2 hover:border-secondary-blue transition-all duration-300 group cursor-pointer"
+          >
+            <div
+              class="w-12 h-12 bg-warning-orange rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200"
+            >
+              <i class="fas fa-motorcycle text-white text-xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-heading mb-4">
+              Tune Up Motor
+            </h3>
+            <p class="text-gray-secondary leading-relaxed">
+              Layanan tune up lengkap untuk motor dengan response time terbaik
+              dan teknisi berpengalaman.
+            </p>
+          </div>
+
+          <!-- Service Card 4 -->
+          <div
+            class="bg-gray-bg rounded-xl p-8 hover:shadow-lg hover:border-2 hover:border-secondary-blue transition-all duration-300 group cursor-pointer"
+          >
+            <div
+              class="w-12 h-12 bg-secondary-blue rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200"
+            >
+              <i class="fas fa-cog text-white text-xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-heading mb-4">
+              Overhaul Mesin Motor
+            </h3>
+            <p class="text-gray-secondary leading-relaxed">
+              Optimalisasi performa mesin motor untuk efisiensi bahan bakar dan
+              performa maksimal dengan teknologi terdepan.
+            </p>
+          </div>
+
+          <!-- Service Card 5 -->
+          <div
+            class="bg-gray-bg rounded-xl p-8 hover:shadow-lg hover:border-2 hover:border-secondary-blue transition-all duration-300 group cursor-pointer"
+          >
+            <div
+              class="w-12 h-12 bg-danger-red rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200"
+            >
+              <i class="fas fa-tire text-white text-xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-heading mb-4">
+              Ganti Ban Motor
+            </h3>
+            <p class="text-gray-secondary leading-relaxed">
+              Perawatan dan penggantian ban motor dengan kualitas terbaik untuk
+              keamanan berkendara.
+            </p>
+          </div>
+
+          <!-- Service Card 6 -->
+          <div
+            class="bg-gray-bg rounded-xl p-8 hover:shadow-lg hover:border-2 hover:border-secondary-blue transition-all duration-300 group cursor-pointer"
+          >
+            <div
+              class="w-12 h-12 bg-cyan-500 rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-200"
+            >
+              <i class="fas fa-spray-can text-white text-xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-gray-heading mb-4">
+              Cuci Motor Premium
+            </h3>
+            <p class="text-gray-secondary leading-relaxed">
+              Layanan cuci motor premium dengan detailing lengkap untuk menjaga
+              motor tetap kinclong.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="bg-gray-bg py-20">
+      <div class="container mx-auto px-4 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl lg:text-4xl font-semibold text-gray-heading mb-4">
+            Mengapa Memilih JHMPRO?
+          </h2>
+          <p class="text-xl text-gray-secondary max-w-2xl mx-auto">
+            Keunggulan sistem manajemen bengkel yang membuat bisnis Anda lebih
+            efisien
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <!-- Features List -->
+          <div class="space-y-8">
+            <div class="flex items-start space-x-4">
+              <div
+                class="w-12 h-12 bg-success-green rounded-lg flex items-center justify-center flex-shrink-0"
+              >
+                <i class="fas fa-check text-white text-xl"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-gray-heading mb-2">
+                  Booking Online
+                </h3>
+                <p class="text-gray-secondary">
+                  Pelanggan dapat melakukan booking servis kapan saja melalui
+                  platform online yang mudah digunakan.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div
+                class="w-12 h-12 bg-secondary-blue rounded-lg flex items-center justify-center flex-shrink-0"
+              >
+                <i class="fas fa-chart-line text-white text-xl"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-gray-heading mb-2">
+                  Tracking Real-time
+                </h3>
+                <p class="text-gray-secondary">
+                  Monitor progress servis secara real-time dengan notifikasi
+                  otomatis untuk setiap tahapan.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div
+                class="w-12 h-12 bg-warning-orange rounded-lg flex items-center justify-center flex-shrink-0"
+              >
+                <i class="fas fa-history text-white text-xl"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-gray-heading mb-2">
+                  Riwayat Lengkap
+                </h3>
+                <p class="text-gray-secondary">
+                  Simpan dan akses riwayat servis lengkap untuk setiap motor
+                  dengan mudah.
+                </p>
+              </div>
+            </div>
+
+            <div class="flex items-start space-x-4">
+              <div
+                class="w-12 h-12 bg-primary-blue rounded-lg flex items-center justify-center flex-shrink-0"
+              >
+                <i class="fas fa-mobile-alt text-white text-xl"></i>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-gray-heading mb-2">
+                  Mobile Friendly
+                </h3>
+                <p class="text-gray-secondary">
+                  Akses sistem dari mana saja dengan antarmuka responsif yang
+                  optimal di semua perangkat.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Image -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg">
+            <div class="text-center">
+              <div
+                class="w-32 h-32 bg-gradient-to-br from-primary-blue to-secondary-blue rounded-full mx-auto mb-6 flex items-center justify-center"
+              >
+                <i class="fas fa-laptop-code text-white text-4xl"></i>
+              </div>
+              <h3 class="text-2xl font-semibold text-gray-heading mb-4">
+                Dashboard Terintegrasi
+              </h3>
+              <p class="text-gray-secondary mb-6">
+                Kelola semua aspek bengkel dalam satu dashboard yang intuitif
+                dan powerful.
+              </p>
+              <a
+                href="admin/admin-dashboard.html"
+                class="bg-primary-blue text-white px-6 py-3 rounded-lg hover:bg-blue-900 transition-colors duration-200 inline-block"
+              >
+                Lihat Demo
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="bg-white py-20">
+      <div class="container mx-auto px-4 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl lg:text-4xl font-semibold text-gray-heading mb-4">
+            Apa Kata Pelanggan Kami
+          </h2>
+          <p class="text-xl text-gray-secondary max-w-2xl mx-auto">
+            Testimoni dari bengkel-bengkel yang telah merasakan manfaat JHMPRO
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Testimonial 1 -->
+          <div class="bg-gray-bg rounded-xl p-8 relative">
+            <div class="text-secondary-blue text-4xl mb-4">
+              <i class="fas fa-quote-left"></i>
+            </div>
+            <p class="text-gray-secondary mb-6 leading-relaxed">
+              "JHMPRO sangat membantu mengorganisir bengkel kami. Sistem booking
+              online membuat pelanggan lebih mudah dan kami bisa melayani lebih
+              banyak motor."
+            </p>
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-12 h-12 bg-primary-blue rounded-full flex items-center justify-center"
+              >
+                <span class="text-white font-semibold">BP</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-heading">Budi Prakoso</h4>
+                <p class="text-sm text-gray-secondary">
+                  Owner Bengkel Maju Jaya
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 2 -->
+          <div class="bg-gray-bg rounded-xl p-8 relative">
+            <div class="text-secondary-blue text-4xl mb-4">
+              <i class="fas fa-quote-left"></i>
+            </div>
+            <p class="text-gray-secondary mb-6 leading-relaxed">
+              "Interface yang user-friendly dan fitur tracking yang real-time.
+              Pelanggan jadi lebih puas karena selalu tahu status servis
+              motornya."
+            </p>
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-12 h-12 bg-success-green rounded-full flex items-center justify-center"
+              >
+                <span class="text-white font-semibold">SR</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-heading">Sari Rahayu</h4>
+                <p class="text-sm text-gray-secondary">
+                  Manager Bengkel Sejahtera
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div class="bg-gray-bg rounded-xl p-8 relative">
+            <div class="text-secondary-blue text-4xl mb-4">
+              <i class="fas fa-quote-left"></i>
+            </div>
+            <p class="text-gray-secondary mb-6 leading-relaxed">
+              "Laporan dan analytics yang disediakan sangat membantu dalam
+              mengambil keputusan bisnis. ROI kami meningkat 40% setelah
+              menggunakan JHMPRO."
+            </p>
+            <div class="flex items-center space-x-3">
+              <div
+                class="w-12 h-12 bg-warning-orange rounded-full flex items-center justify-center"
+              >
+                <span class="text-white font-semibold">AH</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-heading">Ahmad Hidayat</h4>
+                <p class="text-sm text-gray-secondary">
+                  CEO Bengkel Chain Motors
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-heading text-white py-16">
+      <div class="container mx-auto px-4 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Company Info -->
+          <div class="space-y-4">
+            <div
+              class="w-32 h-10 bg-secondary-blue rounded-lg flex items-center justify-center"
+            >
+              <span class="text-white font-bold text-xl">JHMPRO</span>
+            </div>
+            <p class="text-gray-300 leading-relaxed">
+              Solusi manajemen bengkel terpercaya untuk mengoptimalkan
+              operasional dan meningkatkan kepuasan pelanggan.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 bg-secondary-blue rounded-lg flex items-center justify-center hover:bg-primary-blue transition-colors duration-200"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-secondary-blue rounded-lg flex items-center justify-center hover:bg-primary-blue transition-colors duration-200"
+              >
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-secondary-blue rounded-lg flex items-center justify-center hover:bg-primary-blue transition-colors duration-200"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-secondary-blue rounded-lg flex items-center justify-center hover:bg-primary-blue transition-colors duration-200"
+              >
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  >Beranda</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#layanan"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  >Layanan</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#tentang"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  >Tentang Kami</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#kontak"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  >Kontak</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  >FAQ</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Services -->
+          <div>
+            <h3 class="text-lg font-semibold mb-4">Layanan</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  >Servis Motor Rutin</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  >Ganti Oli Motor</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  >Tune Up Motor</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  >Overhaul Mesin</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-300 hover:text-white transition-colors duration-200"
+                  >Cuci Motor Premium</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact Info -->
+          <div id="kontak">
+            <h3 class="text-lg font-semibold mb-4">Kontak Kami</h3>
+            <div class="space-y-3">
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-map-marker-alt text-secondary-blue"></i>
+                <span class="text-gray-300">Jl. Workshop No. 123, Jakarta</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-phone text-secondary-blue"></i>
+                <span class="text-gray-300">+62 21 1234 5678</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-envelope text-secondary-blue"></i>
+                <span class="text-gray-300">info@jhmpro.com</span>
+              </div>
+              <div class="flex items-center space-x-3">
+                <i class="fas fa-clock text-secondary-blue"></i>
+                <span class="text-gray-300">Sen-Sab: 08:00 - 17:00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="border-t border-gray-600 mt-12 pt-8 text-center">
+          <p class="text-gray-300">
+            &copy; 2024 JHMPRO. All rights reserved. |
+            <a href="#" class="text-secondary-blue hover:text-white"
+              >Privacy Policy</a
+            >
+            |
+            <a href="#" class="text-secondary-blue hover:text-white"
+              >Terms of Service</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      mobileMenuButton.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+      });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Close mobile menu when clicking on links
+      document.querySelectorAll("#mobile-menu a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+        });
+      });
+    </script>
+
+    <!-- Navigation Enhancement Script -->
+    <script src="navigation.js"></script>
+  </body>
+</html>
